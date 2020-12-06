@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="competition"
+            type="pl.pwr.footballcompetitionmanager.model.Competition" />
+
+        <variable
+            name="clickListener"
+            type="pl.pwr.footballcompetitionmanager.adapters.CompetitionAdapter.CompetitionListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:paddingHorizontal="@dimen/standard_padding"
+        android:elevation="8dp"
+        android:background="@drawable/recycler_view_item_background"
+        android:onClick="@{() -> clickListener.onClick(competition.competitionId)}">
+
+        <ImageView
+            android:id="@+id/info_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_info_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/competition_status_text_view"
+            app:layout_constraintBottom_toBottomOf="@id/competition_status_text_view"/>
+
+        <TextView
+            android:id="@+id/competition_status_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toEndOf="@id/info_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="W trakcie planowania" />
+
+        <ImageView
+            android:id="@+id/competition_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cup_fill_24"
+            app:tint="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/competition_name_text_view"
+            app:layout_constraintBottom_toBottomOf="@id/competition_name_text_view" />
+
+        <TextView
+            android:id="@+id/competition_name_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginVertical="16dp"
+            android:text="@{competition.name}"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toEndOf="@id/competition_icon"
+            app:layout_constraintEnd_toStartOf="@id/arrow_icon"
+            app:layout_constraintTop_toBottomOf="@id/competition_status_text_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Najlepsza liga"/>
+
+        <ImageView
+            android:id="@+id/arrow_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+            app:tint="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

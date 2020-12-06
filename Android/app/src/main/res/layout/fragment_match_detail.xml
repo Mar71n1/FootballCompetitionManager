@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.matchdetail.MatchDetailFragment">
+
+    <data>
+        <import type="org.threeten.bp.format.DateTimeFormatter"/>
+        <variable name="viewModel" type="pl.pwr.footballcompetitionmanager.fragments.matchdetail.MatchDetailViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/loading_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/primaryColor"
+            tools:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/main_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/info_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/small_padding"
+                android:background="@color/lightGray">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_info_16"
+                    app:tint="@android:color/tab_indicator_text"/>
+
+                <TextView
+                    android:id="@+id/match_info_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    tools:text="Wynik tego meczu może zostać ustalony do "/>
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryColor"
+                android:padding="@dimen/standard_padding">
+
+                <ImageView
+                    android:id="@+id/settings_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_settings_24"
+                    android:clickable="true"
+                    android:visibility="gone"
+                    app:tint="@android:color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible"/>
+
+                <TextView
+                    android:id="@+id/date_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.match.time.format(DateTimeFormatter.ofPattern(@string/date_format))}"
+                    android:textSize="20sp"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="20.11.2020"/>
+
+                <TextView
+                    android:id="@+id/time_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.match.time.format(DateTimeFormatter.ofPattern(@string/time_format))}"
+                    android:textSize="20sp"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintStart_toStartOf="@id/date_text_view"
+                    app:layout_constraintEnd_toEndOf="@id/date_text_view"
+                    app:layout_constraintTop_toBottomOf="@id/date_text_view"
+                    tools:text="18:00"/>
+
+                <Button
+                    android:id="@+id/competition_name_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintStart_toStartOf="@id/time_text_view"
+                    app:layout_constraintEnd_toEndOf="@id/time_text_view"
+                    app:layout_constraintTop_toBottomOf="@id/time_text_view"
+                    tools:text="Mecz towarzyski"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/competition_name_button">
+
+                    <TextView
+                        android:id="@+id/home_team_name_text_view"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="center"
+                        android:text="@{viewModel.match.homeTeamName}"
+                        android:textColor="@android:color/white"
+                        android:textSize="30sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/score_text_view"
+                        app:layout_constraintTop_toTopOf="@id/score_text_view"
+                        app:layout_constraintBottom_toBottomOf="@id/score_text_view"
+                        tools:text="Drużyna A sad dsa dsa dsa sdandsndsa"/>
+
+                    <TextView
+                        android:id="@+id/score_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="35sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:text="3:3"/>
+
+                    <TextView
+                        android:id="@+id/away_team_name_text_view"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:gravity="center"
+                        android:text="@{viewModel.match.awayTeamName}"
+                        android:textColor="@android:color/white"
+                        android:textSize="30sp"
+                        app:layout_constraintStart_toEndOf="@id/score_text_view"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/score_text_view"
+                        app:layout_constraintBottom_toBottomOf="@id/score_text_view"
+                        tools:text="Drużyna B"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/standard_padding"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/rules_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Zasady"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/rules_label">
+                    <!--                android:background="@drawable/map_frame_layout_background"-->
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/teams_chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.format(@string/minutes, viewModel.match.length)}"
+                        android:textSize="20sp"
+                        android:enabled="false"
+                        app:chipStrokeWidth="0dp"
+                        tools:text="60 minut" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/competitions_chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.format(@string/number_of_players_per_team, viewModel.match.playersPerTeam, viewModel.match.playersPerTeam)}"
+                        android:textSize="20sp"
+                        android:enabled="false"
+                        app:chipStrokeWidth="0dp"
+                        tools:text="6 vs 6"/>
+
+                </com.google.android.material.chip.ChipGroup>
+
+                <!--            <LinearLayout-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_marginTop="4dp"-->
+                <!--                android:orientation="vertical"-->
+                <!--                android:padding="8dp"-->
+                <!--                android:background="@drawable/map_frame_layout_background">-->
+                <!--                -->
+                <!--                <TextView-->
+                <!--                    android:id="@+id/minutes"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="60 minut"-->
+                <!--                    android:textColor="@android:color/white" />-->
+                <!--                -->
+                <!--                <TextView-->
+                <!--                    android:id="@+id/number_of_players_text_view"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="6 vs 6"-->
+                <!--                    android:textColor="@android:color/white" />-->
+                <!--                -->
+                <!--            </LinearLayout>-->
+
+                <TextView
+                    android:id="@+id/match_location_map_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Miejsce rozegrania meczu"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/chip_group"
+                    tools:visibility="gone"/>
+
+                <FrameLayout
+                    android:id="@+id/google_map_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="4dp"
+                    android:padding="8dp"
+                    android:background="@drawable/map_frame_layout_background"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toBottomOf="@id/match_location_map_label"
+                    app:layout_constraintBottom_toTopOf="@id/buttons_layout"
+                    tools:visibility="gone">
+
+                    <fragment
+                        android:id="@+id/map"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/buttons_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/google_map_frame"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:visibility="visible">
+
+                    <Button
+                        android:id="@+id/button_one"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        android:text="@string/fragment_match_detail_set_score_button_text"
+                        tools:text="Odrzuć" />
+
+                    <Button
+                        android:id="@+id/button_two"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/fragment_match_detail_set_score_button_text"
+                        android:visibility="gone"
+                        tools:text="Akceptuj"
+                        tools:visibility="visible"/>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/input_score_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="@color/lightGrayTransparent"
+            tools:visibility="gone">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/map_frame_layout_background"
+                android:padding="@dimen/standard_padding">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/input_score_info_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wprowadź wynik meczu"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Wprowadź wynik meczu" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/home_team_goals_text_field"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="8dp"
+                    app:boxBackgroundColor="@android:color/white"
+                    app:layout_constraintEnd_toStartOf="@id/colon_text_view"
+                    app:layout_constraintTop_toBottomOf="@id/input_score_info_text_view">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:gravity="center"
+                        tools:text="2"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/colon_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="@id/home_team_goals_text_field"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/home_team_goals_text_field"
+                    tools:text=":" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/away_team_goals_text_field"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    app:boxBackgroundColor="@android:color/white"
+                    app:layout_constraintStart_toEndOf="@id/colon_text_view"
+                    app:layout_constraintTop_toBottomOf="@id/input_score_info_text_view">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:gravity="center"
+                        tools:text="2"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/cancel_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/fragment_match_detail_cancel_button_label"
+                    android:textColor="@color/primaryColor"
+                    app:backgroundTint="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/home_team_goals_text_field"
+                    tools:text="Anuluj" />
+
+                <Button
+                    android:id="@+id/confirm_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/fragment_match_detail_confirm_button_label"
+                    android:textColor="@color/primaryColor"
+                    app:backgroundTint="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/away_team_goals_text_field"
+                    tools:text="Ok" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+</layout>

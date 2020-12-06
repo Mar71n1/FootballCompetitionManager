@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.teamcreate.TeamCreateFragment">
+
+    <data>
+        <import type="pl.pwr.footballcompetitionmanager.Constants"/>
+        <variable name="viewModel" type="pl.pwr.footballcompetitionmanager.fragments.teamcreate.TeamCreateViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/main_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:liftOnScroll="true">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/fragment_team_create_top_bar_title"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/standard_padding">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/team_name_text_field"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/fragment_team_create_team_name_label"
+                app:counterEnabled="true"
+                app:counterMaxLength="@{Constants.MAX_TEAM_NAME_LENGTH}"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/description_text_field"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/fragment_team_create_description_label"
+                app:counterEnabled="true"
+                app:counterMaxLength="@{Constants.MAX_TEAM_DESCRIPTION_LENGTH}"
+                app:layout_constraintTop_toBottomOf="@id/team_name_text_field">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/create_new_team_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_team_create_create_button_label"
+                android:onClick="@{() -> viewModel.createNewTeam(teamNameTextField.getEditText().getText().toString(), descriptionTextField.getEditText().getText().toString())}"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</layout>

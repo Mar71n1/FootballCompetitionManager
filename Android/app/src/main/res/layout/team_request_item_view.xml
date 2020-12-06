@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="team" type="pl.pwr.footballcompetitionmanager.model.Team" />
+        <variable name="clickListener" type="pl.pwr.footballcompetitionmanager.adapters.RequestTeamAdapter.RequestTeamListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="@dimen/standard_padding"
+        android:elevation="8dp"
+        android:background="@drawable/recycler_view_item_background"
+        android:onClick="@{() -> clickListener.onTeamClick(team.teamId)}">
+
+        <ImageView
+            android:id="@+id/team_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_team_24"
+            app:tint="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/team_name_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{team.name}"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toEndOf="@id/team_icon"
+            app:layout_constraintEnd_toStartOf="@id/accept_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Drużyna dsajdoajs jdoasj jdosajo jdosa"/>
+
+        <Button
+            android:id="@+id/accept_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/fragment_team_detail_request_accept_button_label"
+            android:textColor="@color/primaryColor"
+            android:onClick="@{() -> clickListener.onAcceptClick(team.teamId)}"
+            app:backgroundTint="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/reject_button" />
+
+        <Button
+            android:id="@+id/reject_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_team_detail_request_reject_button_label"
+            android:textColor="@color/red"
+            android:onClick="@{() -> clickListener.onRejectClick(team.teamId)}"
+            app:backgroundTint="@android:color/white"
+            app:layout_constraintStart_toStartOf="@id/accept_button"
+            app:layout_constraintEnd_toEndOf="@id/accept_button"
+            app:layout_constraintTop_toBottomOf="@id/accept_button"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.useraccount.UserAccountFragment">
+
+    <data>
+        <import type="org.threeten.bp.format.DateTimeFormatter" />
+        <variable name="viewModel" type="pl.pwr.footballcompetitionmanager.fragments.useraccount.UserAccountViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/main_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:padding="@dimen/standard_padding"
+            android:background="@color/primaryColor">
+
+            <TextView
+                android:id="@+id/username_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.user.username}"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Mar71n1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.format(@string/fragment_user_account_created_date_format, viewModel.user.creationDate.format(DateTimeFormatter.ofPattern(@string/date_format)))}"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/username_text_view"
+                tools:text="Dołączył 27.11.2020"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/standard_padding"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/change_data_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/fragment_user_account_change_data_button_label" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

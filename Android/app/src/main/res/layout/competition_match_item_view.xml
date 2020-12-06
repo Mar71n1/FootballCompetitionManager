@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="org.threeten.bp.format.DateTimeFormatter" />
+        <variable name="match" type="pl.pwr.footballcompetitionmanager.model.Match" />
+        <variable name="clickListener" type="pl.pwr.footballcompetitionmanager.adapters.MatchListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="@dimen/small_padding"
+        android:elevation="8dp"
+        android:background="@drawable/recycler_view_item_background"
+        android:onClick="@{() -> clickListener.onClick(match.matchId)}">
+
+        <ImageView
+            android:id="@+id/info_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_info_16"
+            app:tint="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/info_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toEndOf="@id/info_icon"
+            app:layout_constraintTop_toTopOf="@id/info_icon"
+            app:layout_constraintBottom_toBottomOf="@id/info_icon"
+            tools:text="Mecz wymaga uzupełnienia wyniku"/>
+
+        <TextView
+            android:id="@+id/date_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{match.time.format(DateTimeFormatter.ofPattern(@string/date_format))}"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_text_view"
+            tools:text="20.11.2020"/>
+
+        <TextView
+            android:id="@+id/time_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{match.time.format(DateTimeFormatter.ofPattern(@string/time_format))}"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="@id/date_text_view"
+            app:layout_constraintEnd_toEndOf="@id/date_text_view"
+            app:layout_constraintTop_toBottomOf="@id/date_text_view"
+            tools:text="18:00"/>
+
+        <TextView
+            android:id="@+id/home_team_name_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:gravity="center"
+            android:text="@{match.homeTeamName}"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/versus_text_view"
+            app:layout_constraintTop_toTopOf="@id/versus_text_view"
+            app:layout_constraintBottom_toBottomOf="@id/versus_text_view"
+            tools:text="Drużyna A sad dsa dsa dsa dsa dsa  sa dsa dsa sda dsa da das das dsa dsa"/>
+
+        <TextView
+            android:id="@+id/versus_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/versus"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/time_text_view"
+            tools:text="vs"/>
+
+        <TextView
+            android:id="@+id/away_team_name_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:gravity="center"
+            android:text="@{match.awayTeamName}"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toEndOf="@id/versus_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/versus_text_view"
+            app:layout_constraintBottom_toBottomOf="@id/versus_text_view"
+            tools:text="Drużyna B"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

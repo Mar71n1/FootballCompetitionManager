@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="team" type="pl.pwr.footballcompetitionmanager.model.Team" />
+        <variable name="clickListener" type="pl.pwr.footballcompetitionmanager.adapters.CompetitionTeamAdapter.CompetitionTeamListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="@dimen/standard_padding"
+        android:elevation="8dp"
+        android:background="@drawable/recycler_view_item_background"
+        android:onClick="@{() -> clickListener.onTeamClick(team.teamId)}">
+
+        <ImageView
+            android:id="@+id/owner_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:visibility="gone"
+            android:src="@drawable/ic_star_24"
+            app:tint="@color/yellow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/owner_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:visibility="gone"
+            android:text="@string/fragment_league_detail_competition_team_item_view_owner_info"
+            android:textColor="@color/yellow"
+            app:layout_constraintStart_toEndOf="@id/owner_icon"
+            app:layout_constraintTop_toTopOf="@id/owner_icon"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/team_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_team_24"
+            app:tint="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/team_name_text_view"
+            app:layout_constraintBottom_toBottomOf="@id/team_name_text_view" />
+
+        <TextView
+            android:id="@+id/team_name_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:text="@{team.name}"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toEndOf="@id/team_icon"
+            app:layout_constraintEnd_toStartOf="@id/remove_button"
+            app:layout_constraintTop_toBottomOf="@id/owner_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Nowa drużyna"/>
+
+        <Button
+            android:id="@+id/remove_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/fragment_league_detail_remove_team_button_label"
+            android:textColor="@color/red"
+            android:visibility="gone"
+            android:onClick="@{() -> clickListener.onRemoveClick(team.teamId)}"
+            app:backgroundTint="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/team_name_text_view"
+            app:layout_constraintBottom_toBottomOf="@id/team_name_text_view"
+            tools:visibility="visible"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

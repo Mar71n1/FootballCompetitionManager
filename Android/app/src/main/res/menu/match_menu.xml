@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_set_match_score"
+        android:title="@string/fragment_match_detail_menu_set_score_label"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/action_change_data"
+        android:title="@string/fragment_match_detail_menu_change_data_label"
+        android:visible="true" />
+
+    <item
+        android:id="@+id/action_delete_match"
+        android:title="@string/fragment_match_detail_menu_delete_match_label"
+        android:visible="true"/>
+
+</menu>

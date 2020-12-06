@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6f6d6086317d4bfa95c4ee161ddd325c" Name="Diagram1">
+        <EntityTypeShape EntityType="Models.Competition" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.CompetitionStatus" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.CompetitionTeam" Width="1.5" PointX="10.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.LeagueSeason" Width="1.5" PointX="7.5" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Match" Width="1.5" PointX="10.5" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.MatchStatus" Width="1.5" PointX="8.25" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Report" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.RequestStatus" Width="1.5" PointX="8.25" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Role" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Team" Width="1.5" PointX="5.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.TeamUser" Width="1.5" PointX="7.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.User" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <AssociationConnector Association="Models.FK_Competitions_CompetitionStatuses" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Competitions_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_CompetitionTeams_Competition" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_LeagueSeasons_Leagues" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Matches_Competitions" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_CompetitionTeams_RequestStatuses" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_CompetitionTeams_Teams" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Matches_MatchStatuses" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Matches_Teams_Away" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Matches_Teams_Home" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Reports_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_TeamUsers_RequestStatuses" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Teams_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_TeamUsers_Teams" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_TeamUsers_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.UserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <argument
+            android:name="username"
+            app:argType="string"
+            android:defaultValue='' />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <argument
+            android:name="snackbarText"
+            app:argType="string"
+            android:defaultValue='' />
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_teamCreateFragment"
+            app:destination="@id/teamCreateFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_leagueCreateFragment"
+            app:destination="@id/leagueCreateFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_homeFragment_to_teamDetailFragment"
+            app:destination="@id/teamDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_leagueDetailFragment"
+            app:destination="@id/leagueDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_matchDetailFragment"
+            app:destination="@id/matchDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_userAccountFragment"
+            app:destination="@id/userAccountFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_createReportFragment"
+            app:destination="@id/createReportFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_reportListFragment"
+            app:destination="@id/reportListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.register.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamCreateFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.teamcreate.TeamCreateFragment"
+        android:label="fragment_team_create"
+        tools:layout="@layout/fragment_team_create" >
+        <action
+            android:id="@+id/action_teamCreateFragment_to_teamDetailFragment"
+            app:destination="@id/teamDetailFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamDetailFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.teamdetail.TeamDetailFragment"
+        android:label="fragment_team_detail"
+        tools:layout="@layout/fragment_team_detail" >
+        <argument
+            android:name="teamId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_teamDetailFragment_to_matchCreateFragment"
+            app:destination="@id/matchCreateFragment" />
+        <action
+            android:id="@+id/action_teamDetailFragment_to_matchDetailFragment"
+            app:destination="@id/matchDetailFragment" />
+        <action
+            android:id="@+id/action_teamDetailFragment_to_leagueDetailFragment"
+            app:destination="@id/leagueDetailFragment" />
+        <action
+            android:id="@+id/action_teamDetailFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_teamDetailFragment_to_teamUpdateFragment"
+            app:destination="@id/teamUpdateFragment" />
+        <argument
+            android:name="snackbarMessage"
+            app:argType="string"
+            android:defaultValue=''/>
+    </fragment>
+    <fragment
+        android:id="@+id/leagueCreateFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.leaguecreate.LeagueCreateFragment"
+        android:label="LeagueCreateFragment" >
+        <action
+            android:id="@+id/action_leagueCreateFragment_to_leagueDetailFragment"
+            app:destination="@id/leagueDetailFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/leagueDetailFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.leaguedetail.LeagueDetailFragment"
+        android:label="LeagueDetailFragment" >
+        <argument
+            android:name="competitionId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_leagueDetailFragment_to_teamDetailFragment"
+            app:destination="@id/teamDetailFragment" />
+        <action
+            android:id="@+id/action_leagueDetailFragment_to_leagueUpdateFragment"
+            app:destination="@id/leagueUpdateFragment" />
+        <argument
+            android:name="snackbarMessage"
+            app:argType="string"
+            android:defaultValue=''/>
+        <action
+            android:id="@+id/action_leagueDetailFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_leagueDetailFragment_to_matchDetailFragment"
+            app:destination="@id/matchDetailFragment" />
+        <action
+            android:id="@+id/action_leagueDetailFragment_to_matchCreateFragment"
+            app:destination="@id/matchCreateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchDetailFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.matchdetail.MatchDetailFragment"
+        android:label="fragment_match_detail"
+        tools:layout="@layout/fragment_match_detail" >
+        <argument
+            android:name="matchId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_matchDetailFragment_to_matchUpdateFragment"
+            app:destination="@id/matchUpdateFragment" />
+        <action
+            android:id="@+id/action_matchDetailFragment_to_leagueDetailFragment"
+            app:destination="@id/leagueDetailFragment" />
+        <action
+            android:id="@+id/action_matchDetailFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchCreateFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.matchcreate.MatchCreateFragment"
+        android:label="fragment_match_create"
+        tools:layout="@layout/fragment_match_create" >
+        <action
+            android:id="@+id/action_matchCreateFragment_to_matchDetailFragment"
+            app:destination="@id/matchDetailFragment"
+            app:popUpTo="@id/matchCreateFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="homeTeamId"
+            app:argType="integer" />
+        <argument
+            android:name="awayTeamId"
+            app:argType="integer" />
+        <argument
+            android:name="competitionId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+    <fragment
+        android:id="@+id/userAccountFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.useraccount.UserAccountFragment"
+        android:label="fragment_user_account"
+        tools:layout="@layout/fragment_user_account" >
+        <argument
+            android:name="snackbarText"
+            app:argType="string"
+            android:defaultValue='' />
+        <action
+            android:id="@+id/action_userAccountFragment_to_changeDataFragment"
+            app:destination="@id/changeDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeDataFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.changedata.ChangeDataFragment"
+        android:label="ChangeDataFragment" >
+        <action
+            android:id="@+id/action_changeDataFragment_to_userAccountFragment"
+            app:destination="@id/userAccountFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_teamDetailFragment"
+            app:destination="@id/teamDetailFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_leagueDetailFragment"
+            app:destination="@id/leagueDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createReportFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.reportcreate.ReportCreateFragment"
+        android:label="fragment_create_report"
+        tools:layout="@layout/fragment_report_create" >
+        <action
+            android:id="@+id/action_createReportFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/reportListFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.reportlist.ReportListFragment"
+        android:label="fragment_report_list"
+        tools:layout="@layout/fragment_report_list" />
+    <fragment
+        android:id="@+id/teamUpdateFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.teamupdate.TeamUpdateFragment"
+        android:label="TeamUpdateFragment" >
+        <action
+            android:id="@+id/action_teamUpdateFragment_to_teamDetailFragment"
+            app:destination="@id/teamDetailFragment"
+            app:popUpTo="@id/teamDetailFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="teamId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/leagueUpdateFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.leagueupdate.LeagueUpdateFragment"
+        android:label="fragment_league_update"
+        tools:layout="@layout/fragment_league_update" >
+        <action
+            android:id="@+id/action_leagueUpdateFragment_to_leagueDetailFragment"
+            app:destination="@id/leagueDetailFragment"
+            app:popUpTo="@id/leagueDetailFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="leagueSeasonId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchUpdateFragment"
+        android:name="pl.pwr.footballcompetitionmanager.fragments.matchupdate.MatchUpdateFragment"
+        android:label="fragment_match_update"
+        tools:layout="@layout/fragment_match_update" >
+        <action
+            android:id="@+id/action_matchUpdateFragment_to_matchDetailFragment"
+            app:destination="@id/matchDetailFragment"
+            app:popUpTo="@id/matchDetailFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="matchId"
+            app:argType="integer" />
+    </fragment>
+</navigation>

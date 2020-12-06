@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/matches_action"
+        android:enabled="true"
+        android:icon="@drawable/ic_football_24"
+        android:title="@string/fragment_home_bottom_nav_matches_title"/>
+    <item
+        android:id="@+id/teams_action"
+        android:enabled="true"
+        android:icon="@drawable/ic_team_24"
+        android:title="@string/fragment_home_bottom_nav_teams_title"/>
+    <item
+        android:id="@+id/competitions_action"
+        android:enabled="true"
+        android:icon="@drawable/ic_cup_fill_24"
+        android:title="@string/fragment_home_bottom_nav_competitions_title"/>
+<!--    <item-->
+<!--        android:id="@+id/notification_action"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@drawable/ic_baseline_notifications_24"-->
+<!--        android:title="Powiadomienia"/>-->
+</menu>

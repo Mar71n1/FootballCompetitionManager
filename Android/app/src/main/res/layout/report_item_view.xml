@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="org.threeten.bp.format.DateTimeFormatter" />
+        <variable name="report" type="pl.pwr.footballcompetitionmanager.model.Report" />
+        <variable name="clickListener" type="pl.pwr.footballcompetitionmanager.adapters.ReportAdapter.ReportListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="@dimen/standard_padding"
+        android:elevation="8dp"
+        android:background="@drawable/recycler_view_item_background">
+
+        <TextView
+            android:id="@+id/username_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(@string/fragment_report_list_username_info_label, report.username)}"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Zgłosił: Mar71n1"/>
+
+        <TextView
+            android:id="@+id/sent_date_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(@string/fragment_report_list_sent_date_info_label ,report.sentDate.format(DateTimeFormatter.ofPattern(@string/date_format)))}"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/username_text_view"
+            tools:text="Dnia: 29.11.2020"/>
+
+        <TextView
+            android:id="@+id/solved_date_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(@string/fragment_report_list_solved_date_info_label ,report.sentDate.format(DateTimeFormatter.ofPattern(@string/date_format)))}"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sent_date_text_view"
+            tools:text="Rozwiązano dnia: 29.11.2020"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{report.description}"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/mark_as_solved_button"
+            app:layout_constraintTop_toBottomOf="@id/solved_date_text_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Jakiś tam opis błędu sadlajdlkasndlasndlkalknasdlknasldn slmdlaskmldmald lmdlsamlkd asmdsalkmld alsmldmasldaslmd lasmlm"/>
+
+        <ImageButton
+            android:id="@+id/mark_as_solved_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_done_48"
+            android:onClick="@{() -> clickListener.onClick(report.reportId)}"
+            app:tint="@color/primaryColor"
+            app:backgroundTint="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+<!--        android:background="@color/primaryColor"-->
+<!--        android:tint="@android:color/white"-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

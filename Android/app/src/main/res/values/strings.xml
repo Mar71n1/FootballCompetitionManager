@@ -1,0 +1,287 @@
+<resources>
+    <string name="app_name">Football Competition Manager</string>
+
+    <string name="friendly_match">Mecz towarzyski</string>
+    <string name="versus">vs</string>
+    <string name="score_format">%d:%d</string>
+    <string name="date_format">dd.MM.yyyy</string>
+    <string name="time_format">HH:mm</string>
+    <string name="date_time_format">dd.MM.yyyy HH:mm</string>
+    <string name="minutes">%d minut</string>
+    <string name="number_of_players_per_team">%d vs %d</string>
+
+    <string name="server_exception_message">Wystąpił błąd po stronie serwera</string>
+
+    <!-- Change data fragment -->
+    <string name="fragment_change_data_toolbar_title">Zmiana danych</string>
+    <string name="fragment_change_data_email_address_text_field_hint">Adres e-mail</string>
+    <string name="fragment_change_data_new_password_text_field_hint">Nowe hasło</string>
+    <string name="fragment_change_data_new_password_confirm_text_field_hint">Potwierdź nowe hasło</string>
+    <string name="fragment_change_data_password_confirm_text_field_hint">Potwierdź hasłem</string>
+    <string name="fragment_change_data_change_button_label">Zapisz zmiany</string>
+    <string name="fragment_change_data_email_not_valid">Wprowadź poprawny adres e-mail</string>
+    <string name="fragment_change_data_email_not_unique">Ten adres e-mail już znajduje się w systemie</string>
+
+    <!-- Competition -->
+    <string name="competition_status_planning_label">W trakcie planowania</string>
+    <string name="competition_status_in_progress_label">Trwające</string>
+    <string name="competition_status_completed_label">Zakończone</string>
+
+    <!-- Home fragment -->
+    <string name="fragment_home_top_menu_search_title">Szukaj</string>
+    <string name="fragment_home_top_menu_settings_title">Ustawienia</string>
+    <string name="fragment_home_top_menu_user_account_title">Konto użytkownika</string>
+    <string name="fragment_home_top_menu_report_bug_title">Zgłoś błąd</string>
+    <string name="fragment_home_top_menu_report_list_title">Lista zgłoszeń</string>
+    <string name="fragment_home_top_menu_logout_title">Wyloguj</string>
+
+    <string name="fragment_home_fab_add_team_label">Dodaj drużynę</string>
+    <string name="fragment_home_fab_add_competition_label">Dodaj rozgrywki</string>
+
+    <string name="fragment_home_no_matches_info">Brak nadchodzących meczów Twoich drużyn.</string>
+    <string name="fragment_home_no_teams_info">Nie jesteś właścicielem ani zawodnikiem żadnej drużyny. Stwórz drużynę albo dołącz do istniejącej poprzez wyszukanie jej po nazwie.</string>
+    <string name="fragment_home_no_competitions_info">Nie jesteś właścicielem rozgrywek ani Twoje drużyny nie biorą udziału w żadnych rozgrywkach.</string>
+
+    <string name="fragment_home_bottom_nav_matches_title">Mecze</string>
+    <string name="fragment_home_bottom_nav_teams_title">Drużyny</string>
+    <string name="fragment_home_bottom_nav_competitions_title">Rozgrywki</string>
+
+    <string name="fragment_home_match_deleted_snackbar_message">Mecz został usunięty</string>
+    <string name="fragment_home_team_deleted_snackbar_message">Drużyna została usunięta</string>
+    <string name="fragment_home_competition_deleted_snackbar_message">Rozgrywki zostały usunięte</string>
+
+    <!-- League create fragment -->
+    <string name="fragment_league_create_top_bar_title">Nowa liga</string>
+    <string name="fragment_league_create_league_name_label">Nazwa ligi</string>
+    <string name="fragment_league_create_number_of_teams_label">Liczba drużyn</string>
+    <string name="fragment_league_create_double_matches_label">Podwójne mecze</string>
+    <string name="fragment_league_create_match_length_label">Długość meczu (w minutach)</string>
+    <string name="fragment_league_create_players_per_team_label">Liczba zawodników jednej drużyny na boisku</string>
+    <string name="fragment_league_create_league_description_label">Opis ligi</string>
+    <string name="fragment_league_create_create_button_label">Stwórz ligę</string>
+
+    <string name="fragment_league_create_empty_name">Nazwa nie może być pusta</string>
+    <string name="fragment_league_create_empty_match_length">Podaj długość meczu</string>
+    <string name="fragment_league_create_error_message">Są błędy w niektórych polach</string>
+
+    <!-- League detail fragment -->
+    <string name="fragment_league_detail_menu_update_data_label">Zmień dane</string>
+    <string name="fragment_league_detail_menu_delete_league_label">Usuń ligę</string>
+    <string name="fragment_league_detail_request_sent_successful_message">Wysłano prośbę o dołączenie Twojej drużyny do ligi</string>
+    <string name="fragment_league_detail_request_cancel_successful_message">Anulowano prośbę o dołączenie Twojej drużyny do ligi</string>
+    <string name="fragment_league_detail_leave_competition_dialog">Czy na pewno chcesz usunąć swoją drużynę z rozgrywek?</string>
+    <string name="fragment_league_detail_competition_left_message">Usunięto Twoją drużynę z rozgrywek</string>
+    <string name="fragment_league_detail_menu_delete_dialog_message">Czy na pewno chcesz usunąć tę ligę? Zostaną usunięte wszystkie wyniki.</string>
+
+    <string name="fragment_league_detail_start_competition_button_label">Rozpocznij rozgrywki</string>
+    <string name="fragment_league_detail_competition_started_snackbar_message">Rozgrywki zostały rozpoczęte</string>
+    <string name="fragment_league_detail_finish_competition_button_label">Zakończ rozgrywki</string>
+    <string name="fragment_league_detail_competition_finished_snackbar_message">Rozgrywki zostały zakończone</string>
+    <string name="fragment_league_detail_table_tab_label">Zasady i tabela</string>
+    <string name="fragment_league_detail_matches_tab_label">Mecze</string>
+    <string name="fragment_league_detail_results_tab_label">Wyniki</string>
+    <string name="fragment_league_detail_teams_tab_label">Drużyny</string>
+    <string name="fragment_league_detail_requests_tab_label">Zgłoszenia</string>
+    <string name="fragment_league_detail_table_header_position">#</string>
+    <string name="fragment_league_detail_table_header_team_name">Nazwa drużyny</string>
+    <string name="fragment_league_detail_table_header_played_matches">M</string>
+    <string name="fragment_league_detail_table_header_wins">W</string>
+    <string name="fragment_league_detail_table_header_draws">R</string>
+    <string name="fragment_league_detail_table_header_loses">P</string>
+    <string name="fragment_league_detail_table_header_goals">B</string>
+    <string name="fragment_league_detail_table_header_points">Pkt.</string>
+    <string name="fragment_league_detail_table_legend_label">Legenda:</string>
+    <string name="fragment_league_detail_table_legend">M - rozegrane mecze\nW - wygrane\nR - remisy\nP - porażki\nB - bramki (bramki zdobyte:bramki stracone)\nPkt. - liczba punktów</string>
+
+    <string name="fragment_league_detail_no_matches_info">Brak nadchodzących meczów</string>
+    <string name="fragment_league_detail_plan_match_button_label">Zaplanuj mecz</string>
+    <string name="fragment_league_detail_no_results_info">Nie rozegrano żadnych meczów w ramach tej ligi</string>
+    <string name="fragment_league_detail_no_teams_info">Nie ma jeszcze żadnych drużyn w lidze</string>
+    <string name="fragment_league_detail_no_requests_info">Brak próśb o dołączenie do ligi</string>
+    <string name="fragment_league_detail_competition_team_item_view_owner_info">Jesteś właścicielem tej drużyny</string>
+    <string name="fragment_league_detail_remove_team_button_label">Usuń</string>
+    <string name="fragment_league_detail_remove_team_dialog_message">Czy na pewno chcesz usunąć drużynę z ligi?</string>
+    <string name="fragment_league_detail_team_removed_message">Drużyna została usunięta z ligi</string>
+    <string name="fragment_league_detail_request_accept_button_text">Dodaj</string>
+    <string name="fragment_league_detail_request_reject_button_text">Odrzuć</string>
+    <string name="fragment_league_detail_request_accept_successful_message">Nowa drużyna została dodana do ligi</string>
+    <string name="fragment_league_detail_request_reject_successful_message">Odrzucono prośbę o dołączenie do ligi</string>
+    <string name="fragment_league_detail_league_updated_snackbar_message">Zaktualizowano dane ligi</string>
+
+    <!-- League update fragment -->
+    <string name="fragment_league_update_top_bar_title">Zmiana danych ligi</string>
+    <string name="fragment_league_update_league_name_label">Nazwa ligi</string>
+    <string name="fragment_league_update_number_of_teams_label">Liczba drużyn</string>
+    <string name="fragment_league_update_double_matches_label">Podwójne mecze</string>
+    <string name="fragment_league_update_match_length_label">Długość meczu (w minutach)</string>
+    <string name="fragment_league_update_players_per_team_label">Liczba zawodników jednej drużyny na boisku</string>
+    <string name="fragment_league_update_league_description_label">Opis ligi</string>
+    <string name="fragment_league_update_button_label">Zmień dane</string>
+    <string name="fragment_league_update_invalid_number_of_teams_message">Ustawiono zbyt małą liczbę drużyn. Aktualnie w lidze znajduje się drużyn</string>
+
+    <!-- Login fragment -->
+    <string name="fragment_login_username_label">Nazwa użytkownika</string>
+    <string name="fragment_login_password_label">Hasło</string>
+    <string name="fragment_login_login_button_text">Zaloguj</string>
+    <string name="fragment_login_register_button_text">Załóż konto</string>
+    <string name="fragment_login_empty_field_message">Pole nie może być puste</string>
+    <string name="fragment_login_login_error_message">Logowanie nie powiodło się. Błędna nazwa użytkownika lub hasło</string>
+    <string name="fragment_login_login_timeout_error_message">Serwer jest wyłączony. Spróbuj ponownie </string>
+    <string name="fragment_login_login_unknown_error_message">Nieznany błąd podczas logowania. Spróbuj ponownie później</string>
+
+    <!-- Match adapter -->
+    <string name="match_adapter_home_team_owner_proposed">Mecz zaproponowany przez właściciela drużyny domowej</string>
+    <string name="match_adapter_away_team_owner_proposed">Mecz zaproponowany przez właściciela drużyny wyjazdowej</string>
+    <string name="match_adapter_match_waiting_for_score">Mecz oczekuje na ustalenie wyniku</string>
+
+    <!-- Match create fragment -->
+    <string name="fragment_match_create_empty_date_time_button_label">--.--.---- --:--</string>
+    <string name="fragment_match_create_match_date_time_label">Data i godzina meczu</string>
+    <string name="fragment_match_create_location_enabled_query">Czy wybrać miejsce rozegrania meczu?</string>
+    <string name="fragment_match_create_match_location_label">Miejsce rozegrania meczu</string>
+    <string name="fragment_match_create_match_length_hint">Długość meczu (w minutach)</string>
+    <string name="fragment_match_create_players_per_team_hint">Liczba zawodników jednej drużyny na boisku</string>
+    <string name="fragment_match_create_plan_match_button_text">Zaplanuj mecz</string>
+    <string name="fragment_match_create_date_picker_title">Wybierz datę meczu</string>
+    <string name="fragment_match_create_time_picker_title">Wybierz godzinę meczu</string>
+    <string name="fragment_match_create_no_date_time_set_message">Nie ustalono daty i godziny meczu</string>
+    <string name="fragment_match_create_incorrect_date_time_message">Nie można zaplanować meczu na mniej niż 24h przed jego rozpoczęciem</string>
+
+    <!-- Match detail fragment -->
+    <string name="fragment_match_detail_menu_set_score_label">Ustaw wynik meczu</string>
+    <string name="fragment_match_detail_menu_change_data_label">Zmień dane</string>
+    <string name="fragment_match_detail_menu_delete_match_label">Usuń mecz</string>
+    <string name="fragment_match_detail_set_score_button_text">Podaj wynik meczu</string>
+    <string name="fragment_match_detail_cancel_button_label">Anuluj</string>
+    <string name="fragment_match_detail_confirm_button_label">Ok</string>
+    <string name="fragment_match_detail_match_accepted_message">Propozycja meczu została zaakceptowana</string>
+    <string name="fragment_match_detail_score_set_message">Wynik meczu został ustalony</string>
+    <string name="fragment_match_detail_score_accepted_message">Wynik meczu został zaakceptowany</string>
+    <string name="fragment_match_detail_score_rejected_message">Wynik meczu został odrzucony</string>
+
+    <!-- Match status -->
+    <string name="match_status_played_no_score_info">Mecz oczekuje na ustalenie wyniku</string>
+    <string name="match_status_score_unknown_info">Wynik meczu nie został ustalony na czas</string>
+
+    <!-- Match update fragment -->
+    <string name="fragment_match_update_update_button_label">Zmień dane</string>
+
+    <!-- Register fragment -->
+    <string name="fragment_register_email_address_label">Adres e-mail</string>
+    <string name="fragment_register_username_label">@string/fragment_login_username_label</string>
+    <string name="fragment_register_password_label">@string/fragment_login_password_label</string>
+    <string name="fragment_register_confirm_password_label">Potwierdź hasło</string>
+    <string name="fragment_register_register_button_text">Zarejestruj</string>
+    <string name="fragment_register_email_not_valid">Wprowadź poprawny adres e-mail</string>
+    <string name="fragment_register_username_length_not_valid">Nazwa użytkownika musi zawierać od %d do %d znaków</string>
+    <string name="fragment_register_passwords_not_equal">"Hasła są różne"</string>
+    <string name="fragment_register_empty_field_message">@string/fragment_login_empty_field_message</string>
+    <string name="fragment_register_register_error_message">Rejestracja nie powiodła się. Adres e-mail lub nazwa użytkownika są już zajęte</string>
+    <string name="fragment_register_register_success">Zarejestrowano pomyślnie</string>
+
+    <!-- Report create fragment -->
+    <string name="fragment_report_create_toolbar_title">Nowe zgłoszenie</string>
+    <string name="fragment_report_create_text_field_hint">Opis błędu</string>
+    <string name="fragment_report_create_button_label">Zgłoś</string>
+    <string name="fragment_report_create_successful_message">Pomyślnie zgłoszono błąd</string>
+    <string name="fragment_report_create_too_long_description_message">Za długi opis błędu</string>
+
+    <!-- Report list fragment -->
+    <string name="fragment_report_list_toolbar_title">Lista zgłoszeń</string>
+    <string name="fragment_report_list_unsolved_tab_title">Nierozwiązane</string>
+    <string name="fragment_report_list_solved_tab_title">Rozwiązane</string>
+    <string name="fragment_report_list_no_unsolved_reports_message">Nie ma nowych zgłoszeń</string>
+    <string name="fragment_report_list_no_solved_reports_message">Brak rozwiązanych zgłoszeń</string>
+    <string name="fragment_report_list_username_info_label">Zgłosił: %s</string>
+    <string name="fragment_report_list_sent_date_info_label">Dnia: %s</string>
+    <string name="fragment_report_list_solved_date_info_label">Rozwiązano dnia: %s</string>
+    <string name="fragment_report_list_dialog_title">Czy na pewno chcesz oznaczyć to zgłoszenie jako rozwiązane?</string>
+    <string name="fragment_report_list_dialog_negative_button_label">Nie</string>
+    <string name="fragment_report_list_dialog_positive_button_label">Tak</string>
+    <string name="fragment_report_list_marked_as_solved_snackbar_message">Oznaczono zgłoszenie jako rozwiązane</string>
+
+    <!-- Result adapter -->
+    <string name="result_adapter_home_team_owner_proposed">Wynik meczu zaproponowany przez właściciela drużyny domowej</string>
+    <string name="result_adapter_away_team_owner_proposed">Wynik meczu zaproponowany przez właściciela drużyny wyjazdowej</string>
+    <string name="result_adapter_home_team_owner_proposed_new">Nowy wynik meczu zaproponowany przez właściciela drużyny domowej</string>
+    <string name="result_adapter_away_team_owner_proposed_new">Nowy wynik meczu zaproponowany przez właściciela drużyny wyjazdowej</string>
+    <string name="result_adapter_match_score_unknown">Wynik meczu nieokreślony</string>
+
+    <!-- Search fragment -->
+    <string name="fragment_search_teams_chip_label">Drużyny</string>
+    <string name="fragment_search_competitions_chip_label">Rozgrywki</string>
+    <string name="fragment_search_no_teams_message">Nie znaleziono żadnych drużyn</string>
+    <string name="fragment_search_no_competitions_message">Nie znaleziono żadnych rozgrywek</string>
+
+    <!-- Team create fragment -->
+    <string name="fragment_team_create_top_bar_title">Nowa drużyna</string>
+    <string name="fragment_team_create_team_name_label">Nazwa drużyny</string>
+    <string name="fragment_team_create_description_label">Opis</string>
+    <string name="fragment_team_create_create_button_label">Stwórz drużynę</string>
+    <string name="fragment_team_create_name_length_invalid_error">Nazwa drużyny musi zawierać od %d do %d znaków</string>
+    <string name="fragment_team_create_description_length_invalid_error">Zbyt długi opis drużyny</string>
+    <string name="fragment_team_create_duplicate_name_error">Drużyna o takiej nazwie już istnieje</string>
+
+    <!-- Team detail fragment -->
+    <string name="fragment_team_detail_creation_date_label">Założono %s</string>
+
+    <string name="fragment_team_detail_menu_change_data_label">Zmień dane</string>
+    <string name="fragment_team_detail_menu_delete_team_label">Usuń drużynę</string>
+
+    <string name="fragment_team_detail_menu_delete_dialog_message">Czy na pewno chcesz usunąć tę drużynę? Zostaną usunięte wszystkie jej mecze i zostanie usunięta ze wszystkich rozgrywek.</string>
+
+    <string name="fragment_team_detail_matches_tab_label">Mecze</string>
+    <string name="fragment_team_detail_results_tab_label">Wyniki</string>
+    <string name="fragment_team_detail_competitions_tab_label">Rozgrywki</string>
+    <string name="fragment_team_detail_players_tab_label">Zawodnicy</string>
+    <string name="fragment_team_detail_requests_tab_label">Zgłoszenia</string>
+
+    <string name="fragment_team_detail_no_matches_info">Brak nadchodzących meczów</string>
+    <string name="fragment_team_detail_no_results_info">Drużyna nie rozegrała jeszcze żadnych meczów</string>
+    <string name="fragment_team_detail_no_competitions_info">Drużyna nie bierze udziału w żadnych rozgrywkach</string>
+    <string name="fragment_team_detail_no_players_info">W drużynie nie ma żadnych zawodników</string>
+    <string name="fragment_team_detail_no_requests_info">Brak próśb o dołączenie do drużyny</string>
+
+    <string name="fragment_team_detail_player_view_owner_info">Właściciel drużyny</string>
+
+    <string name="fragment_team_detail_request_sent_successful_message">Wysłano prośbę o dołączenie do drużyny</string>
+    <string name="fragment_team_detail_request_cancel_successful_message">Anulowano prośbę o dołączenie do drużyny</string>
+
+    <string name="fragment_team_detail_leave_team_dialog">Czy na pewno chcesz opuścić drużynę?</string>
+    <string name="fragment_team_detail_team_left_message">Opuszczono drużynę</string>
+
+    <string name="fragment_team_detail_remove_user_button_label">Usuń</string>
+    <string name="fragment_team_detail_request_accept_button_label">Akceptuj</string>
+    <string name="fragment_team_detail_request_reject_button_label">Odrzuć</string>
+
+    <string name="fragment_team_detail_remove_user_dialog_message">Czy na pewno chcesz usunąć zawodnika z drużyny?</string>
+    <string name="fragment_team_detail_user_removed_message">Zawodnik został usunięty z drużyny</string>
+
+    <string name="fragment_team_detail_request_accept_successful_message">Nowy zawodnik został dodany do drużyny</string>
+    <string name="fragment_team_detail_request_reject_successful_message">Odrzucono prośbę o dołączenie do drużyny</string>
+
+    <string name="fragment_team_detail_team_updated_snackbar_message">Zaktualizowano dane drużyny</string>
+
+    <string name="fragment_team_detail_plan_friendly_button_label">Zaproponuj mecz towarzyski</string>
+
+    <!-- Team update fragment -->
+    <string name="fragment_team_update_top_bar_title">Zmiana danych drużyny</string>
+    <string name="fragment_team_update_team_name_label">Nazwa drużyny</string>
+    <string name="fragment_team_update_description_label">Opis</string>
+    <string name="fragment_team_update_button_label">Zmień dane</string>
+
+    <!-- User account fragment -->"
+    <string name="fragment_user_account_created_date_format">Dołączył %s</string>
+    <string name="fragment_user_account_change_data_button_label">Zmień dane</string>
+    <string name="fragment_user_account_data_changed_message">Dane zostały zaktualizowane</string>
+
+    <!-- Material date picker -->
+    <string name="mtrl_picker_confirm" description="Button text to indicate that the widget will save the user's selection [CHAR_LIMIT=16]">OK</string>
+    <string name="mtrl_picker_cancel" description="Button text to indicate that the widget will ignore the user's selection [CHAR_LIMIT=16]" translatable="false">ANULUJ</string>
+    <string name="mtrl_picker_date_header_unselected">Wybrana data</string>
+    <string name="mtrl_picker_text_input_date_hint">Data</string>
+    <string name="mtrl_picker_invalid_format">Nieprawidłowy format</string>
+    <string name="mtrl_picker_invalid_format_use">Wpisz: %1$s</string>
+    <string name="mtrl_picker_invalid_format_example">Przykład: %1$s</string>
+
+</resources>

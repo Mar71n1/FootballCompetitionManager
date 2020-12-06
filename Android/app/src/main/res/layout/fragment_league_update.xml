@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.leagueupdate.LeagueUpdateFragment">
+
+    <data>
+        <variable name="leagueSeason" type="pl.pwr.footballcompetitionmanager.model.LeagueSeason" />
+        <variable name="viewModel" type="pl.pwr.footballcompetitionmanager.fragments.leagueupdate.LeagueUpdateViewModel" />
+        <import type="pl.pwr.footballcompetitionmanager.Constants"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/loading_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/primaryColor"
+            tools:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/main_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            tools:visibility="visible">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:liftOnScroll="true">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:title="@string/fragment_league_update_top_bar_title"
+                    style="@style/Widget.MaterialComponents.Toolbar.Primary" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/standard_padding">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/league_name_text_field"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/fragment_league_update_league_name_label"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="@{Constants.MAX_COMPETITION_NAME_LENGTH}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{leagueSeason.competition.name}"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/number_of_teams_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_league_update_number_of_teams_label"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/league_name_text_field" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/number_of_teams_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:valueFrom="4"
+                    android:valueTo="24"
+                    android:stepSize="2"
+                    app:thumbColor="@color/primaryLightColor"
+                    app:trackColorActive="@color/primaryLightColor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/number_of_teams_label" />
+                <!--            android:valueFrom="@{Float.valueOf(Constants.MIN_COMPETITION_NUMBER_OF_TEAMS)}"-->
+                <!--            android:valueTo="@{Float.valueOf(Constants.MAX_COMPETITION_NUMBER_OF_TEAMS)}"-->
+
+                <TextView
+                    android:id="@+id/number_of_teams_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{Integer.toString(leagueSeason.competition.numberOfTeams)}"
+                    android:textSize="30sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/number_of_teams_slider" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/double_matches_enabled_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="@{leagueSeason.doubleMatches}"
+                    android:text="@string/fragment_league_update_double_matches_label"
+                    android:textColor="@android:color/tab_indicator_text"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/number_of_teams_text_view"/>
+
+                <!--        app:thumbTint="@color/colorPrimary"-->
+                <!--        app:trackTint="@color/colorPrimary"-->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/match_length_text_field"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/fragment_league_update_match_length_label"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/double_matches_enabled_switch">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:text="@{Integer.toString(leagueSeason.competition.matchLength)}"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/players_per_team_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_league_update_players_per_team_label"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/match_length_text_field" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/players_per_team_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:valueFrom="2"
+                    android:valueTo="11"
+                    android:stepSize="1"
+                    app:thumbColor="@color/primaryLightColor"
+                    app:trackColorActive="@color/primaryLightColor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/players_per_team_label" />
+
+                <TextView
+                    android:id="@+id/players_per_team_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{Integer.toString(leagueSeason.competition.playersPerTeam)}"
+                    android:textSize="30sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/players_per_team_slider" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/description_text_field"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/fragment_league_update_league_description_label"
+                    android:layout_marginTop="16dp"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="@{Constants.MAX_COMPETITION_DESCRIPTION_LENGTH}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/players_per_team_text_view">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{leagueSeason.competition.description}"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/update_league_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_league_update_button_label"
+                    android:textAllCaps="false"
+                    android:onClick="@{() -> viewModel.updateLeagueSeason(leagueNameTextField.getEditText().getText().toString(), (int)numberOfTeamsSlider.getValue(), doubleMatchesEnabledSwitch.isChecked(), Integer.parseInt(matchLengthTextField.getEditText().getText().toString()), (int)playersPerTeamSlider.getValue(), descriptionTextField.getEditText().getText().toString())}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</layout>

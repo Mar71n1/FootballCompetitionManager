@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.leaguedetail.LeagueDetailFragment">
+
+    <data>
+        <variable name="league" type="pl.pwr.footballcompetitionmanager.model.LeagueSeason" />
+        <variable name="viewModel" type="pl.pwr.footballcompetitionmanager.fragments.leaguedetail.LeagueDetailViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/loading_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/primaryColor"
+            tools:visibility="gone" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/main_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="4dp"
+                    app:liftOnScroll="true">
+
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:elevation="0dp"
+                        app:title="@{league.competition.name}"
+                        app:menu="@menu/competition_menu"
+                        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                        tools:title="Moja liga"/>
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+                <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+                <!--            android:layout_width="match_parent"-->
+                <!--            android:layout_height="wrap_content"-->
+                <!--            android:padding="@dimen/standard_padding"-->
+                <!--            android:elevation="4dp"-->
+                <!--            android:background="@color/primaryColor">-->
+
+                <!--            <TextView-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:text="Jakaś liga"-->
+                <!--                android:textColor="@android:color/white"-->
+                <!--                android:textSize="24sp"-->
+                <!--                app:layout_constraintStart_toStartOf="parent"-->
+                <!--                app:layout_constraintTop_toTopOf="parent"/>-->
+
+                <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs"
+                    style="@style/Widget.MaterialComponents.TabLayout.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:elevation="0dp"
+                    app:tabMode="scrollable"
+                    app:tabTextAppearance="@style/tabTextAppearance">
+                    <!--            android:elevation="8dp"-->
+                    <!--            android:background="@color/primaryColor"-->
+                    <!--            app:tabTextColor="@android:color/white"-->
+                    <!--            app:tabIndicatorHeight="4dp"-->
+                    <!--            app:tabIndicatorColor="@android:color/white"-->
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fragment_league_detail_table_tab_label"
+                        tools:text="Tabela i zasady" />
+<!--                        android:icon="@drawable/ic_baseline_table_chart_24"-->
+
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fragment_league_detail_matches_tab_label" />
+<!--                        android:icon="@drawable/ic_football_24"-->
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fragment_league_detail_results_tab_label"/>
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fragment_league_detail_teams_tab_label" />
+<!--                        android:icon="@drawable/ic_team_24"-->
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fragment_league_detail_requests_tab_label"
+                        android:visibility="gone" />
+
+                </com.google.android.material.tabs.TabLayout>
+
+                <RelativeLayout
+                    android:id="@+id/table_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    tools:visibility="visible">
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_above="@id/start_finish_competition_button_background"
+                        android:layout_alignParentTop="true"
+                        android:padding="@dimen/standard_padding">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <!--<TextView
+                        android:id="@+id/league_table_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tabela ligowa"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />-->
+
+                            <TableLayout
+                                android:id="@+id/table"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <!--                android:background="@color/primaryDarkColor"-->
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:background="@android:color/darker_gray">
+
+                                    <TextView
+                                        android:layout_width="20dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_column="0"
+                                        android:layout_marginStart="2dp"
+                                        android:layout_marginVertical="2dp"
+                                        android:padding="4dp"
+                                        android:background="@color/lightGray"
+                                        android:text="@string/fragment_league_detail_table_header_position"
+                                        android:textStyle="bold"/>
+
+                                    <TextView
+                                        android:layout_height="match_parent"
+                                        android:layout_column="1"
+                                        android:layout_weight="1"
+                                        android:layout_marginVertical="2dp"
+                                        android:padding="4dp"
+                                        android:background="@color/lightGray"
+                                        android:text="@string/fragment_league_detail_table_header_team_name"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="25dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_column="2"
+                                        android:layout_marginVertical="2dp"
+                                        android:padding="4dp"
+                                        android:background="@color/lightGray"
+                                        android:text="@string/fragment_league_detail_table_header_played_matches"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="25dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_column="3"
+                                        android:layout_marginVertical="2dp"
+                                        android:padding="4dp"
+                                        android:background="@color/lightGray"
+                                        android:text="@string/fragment_league_detail_table_header_wins"
+                                        android:textStyle="bold"/>
+
+                                    <TextView
+                                        android:layout_width="25dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_column="4"
+                                        android:layout_marginVertical="2dp"
+                                        android:padding="4dp"
+                                        android:background="@color/lightGray"
+                                        android:text="@string/fragment_league_detail_table_header_draws"
+                                        android:textStyle="bold"/>
+
+                                    <TextView
+                                        android:layout_width="25dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_column="5"
+                                        android:layout_marginVertical="2dp"
+                                        android:padding="4dp"
+                                        android:background="@color/lightGray"
+                                        android:text="@string/fragment_league_detail_table_header_loses"
+                                        android:textStyle="bold"/>
+
+                                    <TextView
+                                        android:layout_width="40dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_column="6"
+                                        android:layout_marginVertical="2dp"
+                                        android:padding="4dp"
+                                        android:background="@color/lightGray"
+                                        android:text="@string/fragment_league_detail_table_header_goals"
+                                        android:textStyle="bold"/>
+
+                                    <TextView
+                                        android:layout_width="35dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_column="7"
+                                        android:layout_marginEnd="2dp"
+                                        android:layout_marginVertical="2dp"
+                                        android:padding="4dp"
+                                        android:background="@color/lightGray"
+                                        android:text="@string/fragment_league_detail_table_header_points"
+                                        android:textStyle="bold"/>
+
+                                </TableRow>
+
+                                <!--                <TableRow-->
+                                <!--                    android:layout_height="wrap_content"-->
+                                <!--                    android:background="@android:color/darker_gray">-->
+
+                                <!--                    <TextView-->
+                                <!--                        android:layout_height="match_parent"-->
+                                <!--                        android:layout_column="0"-->
+                                <!--                        android:layout_marginStart="1dp"-->
+                                <!--                        android:layout_marginBottom="1dp"-->
+                                <!--                        android:padding="4dp"-->
+                                <!--                        android:background="@android:color/white"-->
+                                <!--                        android:text="1."/>-->
+
+                                <!--                    <TextView-->
+                                <!--                        android:layout_height="wrap_content"-->
+                                <!--                        android:layout_column="1"-->
+                                <!--                        android:layout_weight="1"-->
+                                <!--                        android:layout_marginBottom="1dp"-->
+                                <!--                        android:padding="4dp"-->
+                                <!--                        android:background="@android:color/white"-->
+                                <!--                        android:text="Drużyna z podwórkasadsadas"/>-->
+
+                                <!--                    <TextView-->
+                                <!--                        android:layout_height="match_parent"-->
+                                <!--                        android:layout_column="2"-->
+                                <!--                        android:layout_marginBottom="1dp"-->
+                                <!--                        android:padding="4dp"-->
+                                <!--                        android:background="@android:color/white"-->
+                                <!--                        android:text="6" />-->
+
+                                <!--                    <TextView-->
+                                <!--                        android:layout_height="match_parent"-->
+                                <!--                        android:layout_column="3"-->
+                                <!--                        android:layout_marginBottom="1dp"-->
+                                <!--                        android:padding="4dp"-->
+                                <!--                        android:background="@android:color/white"-->
+                                <!--                        android:text="6" />-->
+
+                                <!--                    <TextView-->
+                                <!--                        android:layout_height="match_parent"-->
+                                <!--                        android:layout_column="4"-->
+                                <!--                        android:layout_marginBottom="1dp"-->
+                                <!--                        android:padding="4dp"-->
+                                <!--                        android:background="@android:color/white"-->
+                                <!--                        android:text="0" />-->
+
+                                <!--                    <TextView-->
+                                <!--                        android:layout_height="match_parent"-->
+                                <!--                        android:layout_column="5"-->
+                                <!--                        android:layout_marginBottom="1dp"-->
+                                <!--                        android:padding="4dp"-->
+                                <!--                        android:background="@android:color/white"-->
+                                <!--                        android:text="0" />-->
+
+                                <!--                    <TextView-->
+                                <!--                        android:layout_height="match_parent"-->
+                                <!--                        android:layout_column="6"-->
+                                <!--                        android:layout_marginBottom="1dp"-->
+                                <!--                        android:padding="4dp"-->
+                                <!--                        android:background="@android:color/white"-->
+                                <!--                        android:text="18:6" />-->
+
+                                <!--                    <TextView-->
+                                <!--                        android:layout_height="match_parent"-->
+                                <!--                        android:layout_column="7"-->
+                                <!--                        android:layout_marginEnd="1dp"-->
+                                <!--                        android:layout_marginBottom="1dp"-->
+                                <!--                        android:padding="4dp"-->
+                                <!--                        android:background="@android:color/white"-->
+                                <!--                        android:text="18" />-->
+
+                                <!--                </TableRow>-->
+
+                                <!--                <include layout="@layout/table_row_layout" />-->
+
+                            </TableLayout>
+
+                            <TextView
+                                android:id="@+id/legend_title_text_view"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:text="@string/fragment_league_detail_table_legend_label"
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/table" />
+
+                            <TextView
+                                android:id="@+id/legend_text_view"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/fragment_league_detail_table_legend"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/legend_title_text_view"/>
+
+                            <TextView
+                                android:id="@+id/rules_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:text="Zasady"
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/legend_text_view" />
+
+                            <com.google.android.material.chip.ChipGroup
+                                android:id="@+id/chip_group"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:singleSelection="true"
+                                app:selectionRequired="true"
+                                app:layout_constraintTop_toBottomOf="@id/rules_label">
+                                <!--                android:background="@drawable/map_frame_layout_background"-->
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/teams_chip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@{String.format(@string/minutes, league.competition.matchLength)}"
+                                    android:textSize="20sp"
+                                    app:chipStrokeWidth="0dp"
+                                    tools:text="60 minut" />
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/competitions_chip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@{String.format(@string/number_of_players_per_team, league.competition.playersPerTeam, league.competition.playersPerTeam)}"
+                                    android:textSize="20sp"
+                                    app:chipStrokeWidth="0dp"
+                                    tools:text="6 vs 6"/>
+
+                            </com.google.android.material.chip.ChipGroup>
+
+                            <com.google.android.material.switchmaterial.SwitchMaterial
+                                android:id="@+id/double_matches_enabled_switch"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{league.doubleMatches}"
+                                android:enabled="false"
+                                android:text="@string/fragment_league_create_double_matches_label"
+                                android:textColor="@android:color/tab_indicator_text"
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+                                app:layout_constraintTop_toBottomOf="@id/chip_group"/>
+
+                            <TextView
+                                android:id="@+id/number_of_teams_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Liczba drużyn w lidze"
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/double_matches_enabled_switch" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{Integer.toString(league.competition.numberOfTeams)}"
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/number_of_teams_label"
+                                tools:text="4"/>
+
+                            <TextView
+                                android:id="@+id/description_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Opis"
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/number_of_teams_label" />
+
+                            <TextView
+                                android:id="@+id/description_text_view"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="@{league.competition.description}"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/description_label"
+                                tools:text="Jakiś tam opis tej ligi dsakjhd hdkjsahk dhsjahkj dsakjhhkd dhsakjkdh dhskahk dhsakdhask hdskajdhaskj hkjdhsak "/>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.core.widget.NestedScrollView>
+
+                    <FrameLayout
+                        android:id="@+id/start_finish_competition_button_background"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:padding="@dimen/standard_padding"
+                        android:background="@color/lightGray"
+                        android:visibility="gone">
+
+                        <Button
+                            android:id="@+id/start_finish_competition_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fragment_league_detail_start_competition_button_label" />
+
+                    </FrameLayout>
+
+                </RelativeLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/recycler_view_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    tools:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/no_items_info_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:text="@string/fragment_team_detail_no_matches_info"
+                        tools:text="Nie ma rzeczy na liście" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="16dp"
+                        android:paddingBottom="16dp"
+                        android:clipToPadding="false"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/plan_match_button"/>
+
+                    <Button
+                        android:id="@+id/plan_match_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/fragment_league_detail_plan_match_button_label"
+                        android:visibility="gone"
+                        android:enabled="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:visibility="visible"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </FrameLayout>
+
+</layout>

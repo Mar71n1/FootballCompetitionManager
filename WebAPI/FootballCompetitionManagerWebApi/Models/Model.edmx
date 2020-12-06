@@ -1,0 +1,997 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Competitions">
+          <Key>
+            <PropertyRef Name="CompetitionId" />
+          </Key>
+          <Property Name="CompetitionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NumberOfTeams" Type="int" Nullable="false" />
+          <Property Name="MatchLength" Type="int" Nullable="false" />
+          <Property Name="PlayersPerTeam" Type="int" Nullable="false" />
+          <Property Name="OwnerId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreationDate" Type="date" Nullable="false" />
+          <Property Name="CompetitionStatusId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompetitionStatuses">
+          <Key>
+            <PropertyRef Name="CompetitionStatusId" />
+          </Key>
+          <Property Name="CompetitionStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompetitionTeams">
+          <Key>
+            <PropertyRef Name="CompetitionId" />
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="CompetitionId" Type="int" Nullable="false" />
+          <Property Name="TeamId" Type="int" Nullable="false" />
+          <Property Name="RequestStatusId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LeagueSeasons">
+          <Key>
+            <PropertyRef Name="LeagueSeasonId" />
+          </Key>
+          <Property Name="LeagueSeasonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompetitionId" Type="int" Nullable="false" />
+          <Property Name="DoubleMatches" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Matches">
+          <Key>
+            <PropertyRef Name="MatchId" />
+          </Key>
+          <Property Name="MatchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HomeTeamId" Type="int" Nullable="false" />
+          <Property Name="AwayTeamId" Type="int" Nullable="false" />
+          <Property Name="CompetitionId" Type="int" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="Latitude" Type="real" />
+          <Property Name="Longitude" Type="real" />
+          <Property Name="Length" Type="int" Nullable="false" />
+          <Property Name="PlayersPerTeam" Type="int" Nullable="false" />
+          <Property Name="HomeTeamGoals" Type="int" />
+          <Property Name="AwayTeamGoals" Type="int" />
+          <Property Name="MatchStatusId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MatchStatuses">
+          <Key>
+            <PropertyRef Name="MatchStatusId" />
+          </Key>
+          <Property Name="MatchStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reports">
+          <Key>
+            <PropertyRef Name="ReportId" />
+          </Key>
+          <Property Name="ReportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="IsSolved" Type="bit" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="SentDate" Type="date" Nullable="false" />
+          <Property Name="SolvedDate" Type="date" />
+        </EntityType>
+        <EntityType Name="RequestStatuses">
+          <Key>
+            <PropertyRef Name="RequestStatusId" />
+          </Key>
+          <Property Name="RequestStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Teams">
+          <Key>
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="TeamId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OwnerId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreationDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TeamUsers">
+          <Key>
+            <PropertyRef Name="TeamId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="TeamId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RequestStatusId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="CreationDate" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Competitions_CompetitionStatuses">
+          <End Role="CompetitionStatuses" Type="Self.CompetitionStatuses" Multiplicity="1" />
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetitionStatuses">
+              <PropertyRef Name="CompetitionStatusId" />
+            </Principal>
+            <Dependent Role="Competitions">
+              <PropertyRef Name="CompetitionStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Competitions_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Competitions">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompetitionTeams_Competition">
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="1" />
+          <End Role="CompetitionTeams" Type="Self.CompetitionTeams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="CompetitionId" />
+            </Principal>
+            <Dependent Role="CompetitionTeams">
+              <PropertyRef Name="CompetitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompetitionTeams_RequestStatuses">
+          <End Role="RequestStatuses" Type="Self.RequestStatuses" Multiplicity="1" />
+          <End Role="CompetitionTeams" Type="Self.CompetitionTeams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestStatuses">
+              <PropertyRef Name="RequestStatusId" />
+            </Principal>
+            <Dependent Role="CompetitionTeams">
+              <PropertyRef Name="RequestStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompetitionTeams_Teams">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="CompetitionTeams" Type="Self.CompetitionTeams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="CompetitionTeams">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeagueSeasons_Leagues">
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="1" />
+          <End Role="LeagueSeasons" Type="Self.LeagueSeasons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="CompetitionId" />
+            </Principal>
+            <Dependent Role="LeagueSeasons">
+              <PropertyRef Name="CompetitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matches_Competitions">
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="0..1" />
+          <End Role="Matches" Type="Self.Matches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="CompetitionId" />
+            </Principal>
+            <Dependent Role="Matches">
+              <PropertyRef Name="CompetitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matches_MatchStatuses">
+          <End Role="MatchStatuses" Type="Self.MatchStatuses" Multiplicity="1" />
+          <End Role="Matches" Type="Self.Matches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MatchStatuses">
+              <PropertyRef Name="MatchStatusId" />
+            </Principal>
+            <Dependent Role="Matches">
+              <PropertyRef Name="MatchStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matches_Teams_Away">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="Matches" Type="Self.Matches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="Matches">
+              <PropertyRef Name="AwayTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matches_Teams_Home">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="Matches" Type="Self.Matches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="Matches">
+              <PropertyRef Name="HomeTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reports_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Reports" Type="Self.Reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Reports">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teams_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Teams" Type="Self.Teams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Teams">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamUsers_RequestStatuses">
+          <End Role="RequestStatuses" Type="Self.RequestStatuses" Multiplicity="1" />
+          <End Role="TeamUsers" Type="Self.TeamUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestStatuses">
+              <PropertyRef Name="RequestStatusId" />
+            </Principal>
+            <Dependent Role="TeamUsers">
+              <PropertyRef Name="RequestStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamUsers_Teams">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="TeamUsers" Type="Self.TeamUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="TeamUsers">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamUsers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="TeamUsers" Type="Self.TeamUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TeamUsers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelsStoreContainer">
+          <EntitySet Name="Competitions" EntityType="Self.Competitions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompetitionStatuses" EntityType="Self.CompetitionStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompetitionTeams" EntityType="Self.CompetitionTeams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeagueSeasons" EntityType="Self.LeagueSeasons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Matches" EntityType="Self.Matches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MatchStatuses" EntityType="Self.MatchStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reports" EntityType="Self.Reports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestStatuses" EntityType="Self.RequestStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TeamUsers" EntityType="Self.TeamUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Competitions_CompetitionStatuses" Association="Self.FK_Competitions_CompetitionStatuses">
+            <End Role="CompetitionStatuses" EntitySet="CompetitionStatuses" />
+            <End Role="Competitions" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Competitions_Users" Association="Self.FK_Competitions_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Competitions" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompetitionTeams_Competition" Association="Self.FK_CompetitionTeams_Competition">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="CompetitionTeams" EntitySet="CompetitionTeams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompetitionTeams_RequestStatuses" Association="Self.FK_CompetitionTeams_RequestStatuses">
+            <End Role="RequestStatuses" EntitySet="RequestStatuses" />
+            <End Role="CompetitionTeams" EntitySet="CompetitionTeams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompetitionTeams_Teams" Association="Self.FK_CompetitionTeams_Teams">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="CompetitionTeams" EntitySet="CompetitionTeams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeagueSeasons_Leagues" Association="Self.FK_LeagueSeasons_Leagues">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="LeagueSeasons" EntitySet="LeagueSeasons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matches_Competitions" Association="Self.FK_Matches_Competitions">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="Matches" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matches_MatchStatuses" Association="Self.FK_Matches_MatchStatuses">
+            <End Role="MatchStatuses" EntitySet="MatchStatuses" />
+            <End Role="Matches" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matches_Teams_Away" Association="Self.FK_Matches_Teams_Away">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Matches" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matches_Teams_Home" Association="Self.FK_Matches_Teams_Home">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Matches" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reports_Users" Association="Self.FK_Reports_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reports" EntitySet="Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teams_Users" Association="Self.FK_Teams_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamUsers_RequestStatuses" Association="Self.FK_TeamUsers_RequestStatuses">
+            <End Role="RequestStatuses" EntitySet="RequestStatuses" />
+            <End Role="TeamUsers" EntitySet="TeamUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamUsers_Teams" Association="Self.FK_TeamUsers_Teams">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="TeamUsers" EntitySet="TeamUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamUsers_Users" Association="Self.FK_TeamUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TeamUsers" EntitySet="TeamUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Roles" Association="Self.FK_UserRoles_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Users" Association="Self.FK_UserRoles_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Competition">
+          <Key>
+            <PropertyRef Name="CompetitionId" />
+          </Key>
+          <Property Name="CompetitionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NumberOfTeams" Type="Int32" Nullable="false" />
+          <Property Name="MatchLength" Type="Int32" Nullable="false" />
+          <Property Name="PlayersPerTeam" Type="Int32" Nullable="false" />
+          <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CompetitionStatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CompetitionStatus" Relationship="Self.FK_Competitions_CompetitionStatuses" FromRole="Competitions" ToRole="CompetitionStatuses" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Competitions_Users" FromRole="Competitions" ToRole="Users" />
+          <NavigationProperty Name="CompetitionTeams" Relationship="Self.FK_CompetitionTeams_Competition" FromRole="Competitions" ToRole="CompetitionTeams" />
+          <NavigationProperty Name="LeagueSeasons" Relationship="Self.FK_LeagueSeasons_Leagues" FromRole="Competitions" ToRole="LeagueSeasons" />
+          <NavigationProperty Name="Matches" Relationship="Self.FK_Matches_Competitions" FromRole="Competitions" ToRole="Matches" />
+        </EntityType>
+        <EntityType Name="CompetitionStatus">
+          <Key>
+            <PropertyRef Name="CompetitionStatusId" />
+          </Key>
+          <Property Name="CompetitionStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Competitions" Relationship="Self.FK_Competitions_CompetitionStatuses" FromRole="CompetitionStatuses" ToRole="Competitions" />
+        </EntityType>
+        <EntityType Name="CompetitionTeam">
+          <Key>
+            <PropertyRef Name="CompetitionId" />
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="CompetitionId" Type="Int32" Nullable="false" />
+          <Property Name="TeamId" Type="Int32" Nullable="false" />
+          <Property Name="RequestStatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Competition" Relationship="Self.FK_CompetitionTeams_Competition" FromRole="CompetitionTeams" ToRole="Competitions" />
+          <NavigationProperty Name="RequestStatus" Relationship="Self.FK_CompetitionTeams_RequestStatuses" FromRole="CompetitionTeams" ToRole="RequestStatuses" />
+          <NavigationProperty Name="Team" Relationship="Self.FK_CompetitionTeams_Teams" FromRole="CompetitionTeams" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="LeagueSeason">
+          <Key>
+            <PropertyRef Name="LeagueSeasonId" />
+          </Key>
+          <Property Name="LeagueSeasonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompetitionId" Type="Int32" Nullable="false" />
+          <Property Name="DoubleMatches" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Competition" Relationship="Self.FK_LeagueSeasons_Leagues" FromRole="LeagueSeasons" ToRole="Competitions" />
+        </EntityType>
+        <EntityType Name="Match">
+          <Key>
+            <PropertyRef Name="MatchId" />
+          </Key>
+          <Property Name="MatchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HomeTeamId" Type="Int32" Nullable="false" />
+          <Property Name="AwayTeamId" Type="Int32" Nullable="false" />
+          <Property Name="CompetitionId" Type="Int32" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Latitude" Type="Single" />
+          <Property Name="Longitude" Type="Single" />
+          <Property Name="Length" Type="Int32" Nullable="false" />
+          <Property Name="PlayersPerTeam" Type="Int32" Nullable="false" />
+          <Property Name="HomeTeamGoals" Type="Int32" />
+          <Property Name="AwayTeamGoals" Type="Int32" />
+          <Property Name="MatchStatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Competition" Relationship="Self.FK_Matches_Competitions" FromRole="Matches" ToRole="Competitions" />
+          <NavigationProperty Name="MatchStatus" Relationship="Self.FK_Matches_MatchStatuses" FromRole="Matches" ToRole="MatchStatuses" />
+          <NavigationProperty Name="Team" Relationship="Self.FK_Matches_Teams_Away" FromRole="Matches" ToRole="Teams" />
+          <NavigationProperty Name="Team1" Relationship="Self.FK_Matches_Teams_Home" FromRole="Matches" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="MatchStatus">
+          <Key>
+            <PropertyRef Name="MatchStatusId" />
+          </Key>
+          <Property Name="MatchStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Matches" Relationship="Self.FK_Matches_MatchStatuses" FromRole="MatchStatuses" ToRole="Matches" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="ReportId" />
+          </Key>
+          <Property Name="ReportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsSolved" Type="Boolean" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="SentDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SolvedDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Reports_Users" FromRole="Reports" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="RequestStatus">
+          <Key>
+            <PropertyRef Name="RequestStatusId" />
+          </Key>
+          <Property Name="RequestStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CompetitionTeams" Relationship="Self.FK_CompetitionTeams_RequestStatuses" FromRole="RequestStatuses" ToRole="CompetitionTeams" />
+          <NavigationProperty Name="TeamUsers" Relationship="Self.FK_TeamUsers_RequestStatuses" FromRole="RequestStatuses" ToRole="TeamUsers" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.UserRoles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="TeamId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="CompetitionTeams" Relationship="Self.FK_CompetitionTeams_Teams" FromRole="Teams" ToRole="CompetitionTeams" />
+          <NavigationProperty Name="Matches" Relationship="Self.FK_Matches_Teams_Away" FromRole="Teams" ToRole="Matches" />
+          <NavigationProperty Name="Matches1" Relationship="Self.FK_Matches_Teams_Home" FromRole="Teams" ToRole="Matches" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Teams_Users" FromRole="Teams" ToRole="Users" />
+          <NavigationProperty Name="TeamUsers" Relationship="Self.FK_TeamUsers_Teams" FromRole="Teams" ToRole="TeamUsers" />
+        </EntityType>
+        <EntityType Name="TeamUser">
+          <Key>
+            <PropertyRef Name="TeamId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="TeamId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RequestStatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RequestStatus" Relationship="Self.FK_TeamUsers_RequestStatuses" FromRole="TeamUsers" ToRole="RequestStatuses" />
+          <NavigationProperty Name="Team" Relationship="Self.FK_TeamUsers_Teams" FromRole="TeamUsers" ToRole="Teams" />
+          <NavigationProperty Name="User" Relationship="Self.FK_TeamUsers_Users" FromRole="TeamUsers" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Competitions" Relationship="Self.FK_Competitions_Users" FromRole="Users" ToRole="Competitions" />
+          <NavigationProperty Name="Reports" Relationship="Self.FK_Reports_Users" FromRole="Users" ToRole="Reports" />
+          <NavigationProperty Name="Teams" Relationship="Self.FK_Teams_Users" FromRole="Users" ToRole="Teams" />
+          <NavigationProperty Name="TeamUsers" Relationship="Self.FK_TeamUsers_Users" FromRole="Users" ToRole="TeamUsers" />
+          <NavigationProperty Name="Roles" Relationship="Self.UserRoles" FromRole="Users" ToRole="Roles" />
+        </EntityType>
+        <Association Name="FK_Competitions_CompetitionStatuses">
+          <End Role="CompetitionStatuses" Type="Self.CompetitionStatus" Multiplicity="1" />
+          <End Role="Competitions" Type="Self.Competition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetitionStatuses">
+              <PropertyRef Name="CompetitionStatusId" />
+            </Principal>
+            <Dependent Role="Competitions">
+              <PropertyRef Name="CompetitionStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Competitions_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Competitions" Type="Self.Competition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Competitions">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompetitionTeams_Competition">
+          <End Role="Competitions" Type="Self.Competition" Multiplicity="1" />
+          <End Role="CompetitionTeams" Type="Self.CompetitionTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="CompetitionId" />
+            </Principal>
+            <Dependent Role="CompetitionTeams">
+              <PropertyRef Name="CompetitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeagueSeasons_Leagues">
+          <End Role="Competitions" Type="Self.Competition" Multiplicity="1" />
+          <End Role="LeagueSeasons" Type="Self.LeagueSeason" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="CompetitionId" />
+            </Principal>
+            <Dependent Role="LeagueSeasons">
+              <PropertyRef Name="CompetitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matches_Competitions">
+          <End Role="Competitions" Type="Self.Competition" Multiplicity="0..1" />
+          <End Role="Matches" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="CompetitionId" />
+            </Principal>
+            <Dependent Role="Matches">
+              <PropertyRef Name="CompetitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompetitionTeams_RequestStatuses">
+          <End Role="RequestStatuses" Type="Self.RequestStatus" Multiplicity="1" />
+          <End Role="CompetitionTeams" Type="Self.CompetitionTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestStatuses">
+              <PropertyRef Name="RequestStatusId" />
+            </Principal>
+            <Dependent Role="CompetitionTeams">
+              <PropertyRef Name="RequestStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompetitionTeams_Teams">
+          <End Role="Teams" Type="Self.Team" Multiplicity="1" />
+          <End Role="CompetitionTeams" Type="Self.CompetitionTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="CompetitionTeams">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matches_MatchStatuses">
+          <End Role="MatchStatuses" Type="Self.MatchStatus" Multiplicity="1" />
+          <End Role="Matches" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MatchStatuses">
+              <PropertyRef Name="MatchStatusId" />
+            </Principal>
+            <Dependent Role="Matches">
+              <PropertyRef Name="MatchStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matches_Teams_Away">
+          <End Role="Teams" Type="Self.Team" Multiplicity="1" />
+          <End Role="Matches" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="Matches">
+              <PropertyRef Name="AwayTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matches_Teams_Home">
+          <End Role="Teams" Type="Self.Team" Multiplicity="1" />
+          <End Role="Matches" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="Matches">
+              <PropertyRef Name="HomeTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reports_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Reports" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Reports">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamUsers_RequestStatuses">
+          <End Role="RequestStatuses" Type="Self.RequestStatus" Multiplicity="1" />
+          <End Role="TeamUsers" Type="Self.TeamUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestStatuses">
+              <PropertyRef Name="RequestStatusId" />
+            </Principal>
+            <Dependent Role="TeamUsers">
+              <PropertyRef Name="RequestStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teams_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Teams" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Teams">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamUsers_Teams">
+          <End Role="Teams" Type="Self.Team" Multiplicity="1" />
+          <End Role="TeamUsers" Type="Self.TeamUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="TeamUsers">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamUsers_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="TeamUsers" Type="Self.TeamUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TeamUsers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserRoles">
+          <End Role="Roles" Type="Self.Role" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="FootballCompetitionManagerDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Competitions" EntityType="Self.Competition" />
+          <EntitySet Name="CompetitionStatuses" EntityType="Self.CompetitionStatus" />
+          <EntitySet Name="CompetitionTeams" EntityType="Self.CompetitionTeam" />
+          <EntitySet Name="LeagueSeasons" EntityType="Self.LeagueSeason" />
+          <EntitySet Name="Matches" EntityType="Self.Match" />
+          <EntitySet Name="MatchStatuses" EntityType="Self.MatchStatus" />
+          <EntitySet Name="Reports" EntityType="Self.Report" />
+          <EntitySet Name="RequestStatuses" EntityType="Self.RequestStatus" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <EntitySet Name="TeamUsers" EntityType="Self.TeamUser" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Competitions_CompetitionStatuses" Association="Self.FK_Competitions_CompetitionStatuses">
+            <End Role="CompetitionStatuses" EntitySet="CompetitionStatuses" />
+            <End Role="Competitions" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Competitions_Users" Association="Self.FK_Competitions_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Competitions" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompetitionTeams_Competition" Association="Self.FK_CompetitionTeams_Competition">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="CompetitionTeams" EntitySet="CompetitionTeams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeagueSeasons_Leagues" Association="Self.FK_LeagueSeasons_Leagues">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="LeagueSeasons" EntitySet="LeagueSeasons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matches_Competitions" Association="Self.FK_Matches_Competitions">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="Matches" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompetitionTeams_RequestStatuses" Association="Self.FK_CompetitionTeams_RequestStatuses">
+            <End Role="RequestStatuses" EntitySet="RequestStatuses" />
+            <End Role="CompetitionTeams" EntitySet="CompetitionTeams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompetitionTeams_Teams" Association="Self.FK_CompetitionTeams_Teams">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="CompetitionTeams" EntitySet="CompetitionTeams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matches_MatchStatuses" Association="Self.FK_Matches_MatchStatuses">
+            <End Role="MatchStatuses" EntitySet="MatchStatuses" />
+            <End Role="Matches" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matches_Teams_Away" Association="Self.FK_Matches_Teams_Away">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Matches" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matches_Teams_Home" Association="Self.FK_Matches_Teams_Home">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Matches" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reports_Users" Association="Self.FK_Reports_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reports" EntitySet="Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamUsers_RequestStatuses" Association="Self.FK_TeamUsers_RequestStatuses">
+            <End Role="RequestStatuses" EntitySet="RequestStatuses" />
+            <End Role="TeamUsers" EntitySet="TeamUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teams_Users" Association="Self.FK_Teams_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamUsers_Teams" Association="Self.FK_TeamUsers_Teams">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="TeamUsers" EntitySet="TeamUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamUsers_Users" Association="Self.FK_TeamUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TeamUsers" EntitySet="TeamUsers" />
+          </AssociationSet>
+          <AssociationSet Name="UserRoles" Association="Self.UserRoles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="FootballCompetitionManagerDbContext">
+          <EntitySetMapping Name="Competitions">
+            <EntityTypeMapping TypeName="Models.Competition">
+              <MappingFragment StoreEntitySet="Competitions">
+                <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NumberOfTeams" ColumnName="NumberOfTeams" />
+                <ScalarProperty Name="MatchLength" ColumnName="MatchLength" />
+                <ScalarProperty Name="PlayersPerTeam" ColumnName="PlayersPerTeam" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="CompetitionStatusId" ColumnName="CompetitionStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompetitionStatuses">
+            <EntityTypeMapping TypeName="Models.CompetitionStatus">
+              <MappingFragment StoreEntitySet="CompetitionStatuses">
+                <ScalarProperty Name="CompetitionStatusId" ColumnName="CompetitionStatusId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompetitionTeams">
+            <EntityTypeMapping TypeName="Models.CompetitionTeam">
+              <MappingFragment StoreEntitySet="CompetitionTeams">
+                <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="RequestStatusId" ColumnName="RequestStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeagueSeasons">
+            <EntityTypeMapping TypeName="Models.LeagueSeason">
+              <MappingFragment StoreEntitySet="LeagueSeasons">
+                <ScalarProperty Name="LeagueSeasonId" ColumnName="LeagueSeasonId" />
+                <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+                <ScalarProperty Name="DoubleMatches" ColumnName="DoubleMatches" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matches">
+            <EntityTypeMapping TypeName="Models.Match">
+              <MappingFragment StoreEntitySet="Matches">
+                <ScalarProperty Name="MatchId" ColumnName="MatchId" />
+                <ScalarProperty Name="HomeTeamId" ColumnName="HomeTeamId" />
+                <ScalarProperty Name="AwayTeamId" ColumnName="AwayTeamId" />
+                <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="PlayersPerTeam" ColumnName="PlayersPerTeam" />
+                <ScalarProperty Name="HomeTeamGoals" ColumnName="HomeTeamGoals" />
+                <ScalarProperty Name="AwayTeamGoals" ColumnName="AwayTeamGoals" />
+                <ScalarProperty Name="MatchStatusId" ColumnName="MatchStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MatchStatuses">
+            <EntityTypeMapping TypeName="Models.MatchStatus">
+              <MappingFragment StoreEntitySet="MatchStatuses">
+                <ScalarProperty Name="MatchStatusId" ColumnName="MatchStatusId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reports">
+            <EntityTypeMapping TypeName="Models.Report">
+              <MappingFragment StoreEntitySet="Reports">
+                <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsSolved" ColumnName="IsSolved" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+                <ScalarProperty Name="SolvedDate" ColumnName="SolvedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestStatuses">
+            <EntityTypeMapping TypeName="Models.RequestStatus">
+              <MappingFragment StoreEntitySet="RequestStatuses">
+                <ScalarProperty Name="RequestStatusId" ColumnName="RequestStatusId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="Models.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="Models.Team">
+              <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TeamUsers">
+            <EntityTypeMapping TypeName="Models.TeamUser">
+              <MappingFragment StoreEntitySet="TeamUsers">
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RequestStatusId" ColumnName="RequestStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Models.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UserRoles" TypeName="Models.UserRoles" StoreEntitySet="UserRoles">
+            <EndProperty Name="Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
