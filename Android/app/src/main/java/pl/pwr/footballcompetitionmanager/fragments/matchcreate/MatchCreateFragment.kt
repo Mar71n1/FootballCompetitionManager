@@ -192,10 +192,16 @@ class MatchCreateFragment : Fragment() {
             .setTitle("Potwierdź planowanie meczu")
             .setNegativeButton("Anuluj") { _, _ -> Unit }
             .setPositiveButton("Ok") { _, _ ->
-                if (binding.locationEnabledSwitch.isChecked)
-                    viewModel.createMatch(googleMap.cameraPosition.target.latitude, googleMap.cameraPosition.target.longitude, binding.matchLengthTextField.editText!!.text.toString().toInt(), binding.playersPerTeamSlider.value.toInt())
-                else
-                    viewModel.createMatch(null, null, binding.matchLengthTextField.editText!!.text.toString().toInt(), binding.playersPerTeamSlider.value.toInt())
+                if (binding.matchLengthTextField.editText!!.text.isNullOrEmpty()) {
+                    binding.matchLengthTextField.error = getString(R.string.fragment_match_create_match_length_empty)
+                } else if (binding.matchLengthTextField.editText!!.text.toString().toInt() <= 0) {
+                    binding.matchLengthTextField.error = getString(R.string.fragment_match_create_match_length_invalid)
+                } else {
+                    if (binding.locationEnabledSwitch.isChecked)
+                        viewModel.createMatch(googleMap.cameraPosition.target.latitude, googleMap.cameraPosition.target.longitude, binding.matchLengthTextField.editText!!.text.toString().toInt(), binding.playersPerTeamSlider.value.toInt())
+                    else
+                        viewModel.createMatch(null, null, binding.matchLengthTextField.editText!!.text.toString().toInt(), binding.playersPerTeamSlider.value.toInt())
+                }
             }
             .show()
     }

@@ -56,7 +56,7 @@ class LeagueCreateFragment : Fragment() {
         })
 
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
+            Snackbar.make(binding.mainLinearLayout, getString(it), Snackbar.LENGTH_SHORT).show()
         })
     }
 
@@ -98,6 +98,8 @@ class LeagueCreateFragment : Fragment() {
         binding.leagueCreateButton.setOnClickListener {
             if (binding.matchLengthTextField.editText!!.text.toString() == "") {
                 binding.matchLengthTextField.error = getString(R.string.fragment_league_create_empty_match_length)
+            } else if (binding.matchLengthTextField.editText!!.text.toString().toInt() <= 0) {
+                binding.matchLengthTextField.error = getString(R.string.fragment_league_create_match_length_not_greater_than_zero)
             } else {
                 viewModel.createNewLeague(binding.leagueNameTextField.editText!!.text.toString(), binding.numberOfTeamsSlider.value.toInt(), binding.doubleMatchEnabledSwitch.isChecked, Integer.parseInt(binding.matchLengthTextField.editText!!.text.toString()), binding.playersPerTeamSlider.value.toInt(), binding.descriptionTextField.editText!!.text.toString())
             }

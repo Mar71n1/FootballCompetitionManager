@@ -61,8 +61,11 @@
     <string name="fragment_league_create_create_button_label">Stwórz ligę</string>
 
     <string name="fragment_league_create_empty_name">Nazwa nie może być pusta</string>
+    <string name="fragment_league_create_name_length_not_valid">Nazwa rozgrywek musi zawierać od 8 do 50 znaków</string>
     <string name="fragment_league_create_empty_match_length">Podaj długość meczu</string>
-    <string name="fragment_league_create_error_message">Są błędy w niektórych polach</string>
+    <string name="fragment_league_create_match_length_not_greater_than_zero">Długość meczu musi być dłuższa od zera</string>
+    <string name="fragment_league_create_description_too_long">Opis rozgrywek jest zbyt długi</string>
+    <string name="fragment_league_create_unique_name_error">Rozgrywki o takiej nazwie już istnieją</string>
 
     <!-- League detail fragment -->
     <string name="fragment_league_detail_menu_update_data_label">Zmień dane</string>
@@ -146,6 +149,8 @@
     <string name="fragment_match_create_time_picker_title">Wybierz godzinę meczu</string>
     <string name="fragment_match_create_no_date_time_set_message">Nie ustalono daty i godziny meczu</string>
     <string name="fragment_match_create_incorrect_date_time_message">Nie można zaplanować meczu na mniej niż 24h przed jego rozpoczęciem</string>
+    <string name="fragment_match_create_match_length_empty">Podaj długość meczu</string>
+    <string name="fragment_match_create_match_length_invalid">Długość meczu musi być większa od 0</string>
 
     <!-- Match detail fragment -->
     <string name="fragment_match_detail_menu_set_score_label">Ustaw wynik meczu</string>
@@ -184,6 +189,7 @@
     <string name="fragment_report_create_text_field_hint">Opis błędu</string>
     <string name="fragment_report_create_button_label">Zgłoś</string>
     <string name="fragment_report_create_successful_message">Pomyślnie zgłoszono błąd</string>
+    <string name="fragment_report_create_description_message_empty">Opis błędu nie może być pusty</string>
     <string name="fragment_report_create_too_long_description_message">Za długi opis błędu</string>
 
     <!-- Report list fragment -->

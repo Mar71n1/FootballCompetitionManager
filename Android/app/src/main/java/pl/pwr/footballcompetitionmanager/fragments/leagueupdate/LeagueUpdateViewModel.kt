@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
+import pl.pwr.footballcompetitionmanager.Constants
 import pl.pwr.footballcompetitionmanager.R
 import pl.pwr.footballcompetitionmanager.model.LeagueSeason
 import pl.pwr.footballcompetitionmanager.model.Team
@@ -44,7 +45,13 @@ class LeagueUpdateViewModel(
         viewModelScope.launch {
             if (numberOfTeams < repository.getCompetitionTeams(leagueSeason.value!!.competition.competitionId!!).size)
                 _snackbarMessage.value = R.string.fragment_league_update_invalid_number_of_teams_message
-            else {
+            else if (name == "") {
+                _snackbarMessage.value = R.string.fragment_league_create_empty_name
+            } else if (name.length < Constants.MIN_COMPETITION_NAME_LENGTH || Constants.MAX_COMPETITION_NAME_LENGTH < name.length) {
+                _snackbarMessage.value = R.string.fragment_league_create_name_length_not_valid
+            } else if (Constants.MAX_COMPETITION_DESCRIPTION_LENGTH < description.length) {
+                _snackbarMessage.value = R.string.fragment_league_create_description_too_long
+            } else {
                 _loading.value = true
                 _leagueSeason.value!!.competition.name = name
                 _leagueSeason.value!!.competition.numberOfTeams = numberOfTeams
@@ -52,9 +59,15 @@ class LeagueUpdateViewModel(
                 _leagueSeason.value!!.competition.matchLength = length
                 _leagueSeason.value!!.competition.playersPerTeam = playersPerTeam
                 _leagueSeason.value!!.competition.description = description
-                repository.updateLeagueSeason(_leagueSeason.value!!)
-                joinAll()
-                _updated.value = true
+                try {
+                    repository.updateLeagueSeason(_leagueSeason.value!!)
+                    joinAll()
+                    _updated.value = true
+                } catch (exception: Exception) {
+                    _loading.value = false
+                    _snackbarMessage.value = R.string.fragment_league_create_unique_name_error
+                }
+
             }
         }
     }

@@ -24,16 +24,19 @@ class ReportCreateViewModel(
         get() = _reportCreationErrorMessage
 
     fun createReport(bugDescription: String) {
-        if (Constants.MAX_REPORT_LENGTH < bugDescription.length)
+        if (bugDescription == "") {
+            _reportCreationErrorMessage.value = R.string.fragment_report_create_description_message_empty
+        } else if (Constants.MAX_REPORT_LENGTH < bugDescription.length) {
             _reportCreationErrorMessage.value = R.string.fragment_report_create_too_long_description_message
-        
-        viewModelScope.launch {
-            try {
-                repository.createReport(Report(bugDescription, repository.getCurrentUser().userId))
-                joinAll()
-                _reportCreationSuccessful.value = true
-            } catch (exception: IllegalArgumentException) {
-                _reportCreationErrorMessage.value = R.string.fragment_report_create_too_long_description_message
+        } else {
+            viewModelScope.launch {
+                try {
+                    repository.createReport(Report(bugDescription, repository.getCurrentUser().userId))
+                    joinAll()
+                    _reportCreationSuccessful.value = true
+                } catch (exception: IllegalArgumentException) {
+                    _reportCreationErrorMessage.value = R.string.fragment_report_create_too_long_description_message
+                }
             }
         }
     }
