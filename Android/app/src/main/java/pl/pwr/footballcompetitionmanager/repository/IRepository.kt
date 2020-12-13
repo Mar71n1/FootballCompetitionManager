@@ -74,7 +74,7 @@ interface IRepository {
     suspend fun rejectUserRequest(teamId: Int, userId: Int)
 
     // User
-    suspend fun register(email: String, username: String, password: String, confirmPassword: String): Boolean
+    suspend fun register(email: String, username: String, password: String, confirmPassword: String)
     suspend fun login(username: String, password: String): Boolean
     fun logout()
     suspend fun changeData(user: User): User

@@ -10,6 +10,7 @@ import pl.pwr.footballcompetitionmanager.Constants
 import pl.pwr.footballcompetitionmanager.R
 import pl.pwr.footballcompetitionmanager.model.Report
 import pl.pwr.footballcompetitionmanager.repository.IRepository
+import pl.pwr.footballcompetitionmanager.utils.SingleLiveEvent
 
 class ReportCreateViewModel(
     private val repository: IRepository
@@ -22,6 +23,9 @@ class ReportCreateViewModel(
     private val _reportCreationErrorMessage = MutableLiveData<Int>()
     val reportCreationErrorMessage: LiveData<Int>
         get() = _reportCreationErrorMessage
+
+    private val _snackbarMessage = SingleLiveEvent<Int>()
+    fun getSnackbarMessage(): SingleLiveEvent<Int> = _snackbarMessage
 
     fun createReport(bugDescription: String) {
         if (bugDescription == "") {
@@ -36,6 +40,8 @@ class ReportCreateViewModel(
                     _reportCreationSuccessful.value = true
                 } catch (exception: IllegalArgumentException) {
                     _reportCreationErrorMessage.value = R.string.fragment_report_create_too_long_description_message
+                } catch (exception: Exception) {
+                    _snackbarMessage.value = R.string.server_exception_message
                 }
             }
         }

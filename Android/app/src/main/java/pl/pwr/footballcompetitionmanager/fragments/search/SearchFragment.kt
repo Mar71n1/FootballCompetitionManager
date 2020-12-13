@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import pl.pwr.footballcompetitionmanager.R
 import pl.pwr.footballcompetitionmanager.databinding.FragmentSearchBinding
 import pl.pwr.footballcompetitionmanager.adapters.CompetitionAdapter
@@ -105,6 +106,11 @@ class SearchFragment : Fragment() {
         viewModel.competitions.observe(viewLifecycleOwner, Observer {
             competitionAdapter.competitions = it
             showContent()
+        })
+
+        viewModel.getSnackbarMessage().observe(viewLifecycleOwner, Observer {
+            if (it != null)
+                Snackbar.make(binding.mainLinearLayout, getString(it), Snackbar.LENGTH_SHORT).show()
         })
     }
 

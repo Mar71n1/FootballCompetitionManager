@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -50,6 +51,7 @@ class MatchUpdateFragment : Fragment() {
 
         observeViewModel()
         setListeners()
+        observeEditTexts()
 
         Timber.d("onCreateViewFinished")
         return binding.root
@@ -184,6 +186,13 @@ class MatchUpdateFragment : Fragment() {
                         viewModel.updateMatch(null, null, binding.matchLengthTextField.editText!!.text.toString().toInt(), binding.playersPerTeamSlider.value.toInt())
                 }
                 .show()
+        }
+    }
+
+    private fun observeEditTexts() {
+        binding.matchLengthTextField.editText?.doAfterTextChanged {
+            if (it.toString().isEmpty())
+                binding.matchLengthTextField.error = null
         }
     }
 }

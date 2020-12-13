@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import pl.pwr.footballcompetitionmanager.R
 import pl.pwr.footballcompetitionmanager.databinding.FragmentReportCreateBinding
 import pl.pwr.footballcompetitionmanager.repository.RemoteRepository
+import timber.log.Timber
 
 class ReportCreateFragment : Fragment() {
 
@@ -23,6 +24,7 @@ class ReportCreateFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Timber.d("onCreate finished")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -34,6 +36,7 @@ class ReportCreateFragment : Fragment() {
         observeViewModel()
         observeEditText()
 
+        Timber.d("onCreateView finished")
         return binding.root
     }
 
@@ -51,6 +54,11 @@ class ReportCreateFragment : Fragment() {
             } else {
                 binding.bugDescriptionTextField.error = null
             }
+        })
+
+        viewModel.getSnackbarMessage().observe(viewLifecycleOwner, Observer {
+            if (it != null)
+                Snackbar.make(binding.linearLayout, getString(it), Snackbar.LENGTH_SHORT).show()
         })
     }
 

@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import pl.pwr.footballcompetitionmanager.R
 import pl.pwr.footballcompetitionmanager.model.Report
 import pl.pwr.footballcompetitionmanager.repository.IRepository
+import pl.pwr.footballcompetitionmanager.utils.SingleLiveEvent
 
 class ReportListViewModel(
     private val repository: IRepository
@@ -30,30 +31,45 @@ class ReportListViewModel(
     val markedAsSolvedMessage : LiveData<Int>
         get() = _markedAsSolvedMessage
 
+    private val _snackbarMessage = SingleLiveEvent<Int>()
+    fun getSnackbarMessage(): SingleLiveEvent<Int> = _snackbarMessage
+
     init {
         viewModelScope.launch {
-            _unsolvedReports.value = repository.getUnsolvedReports()
-            _solvedReports.value = repository.getSolvedReports()
-            joinAll()
-            _loading.value = false
+            try {
+                _unsolvedReports.value = repository.getUnsolvedReports()
+                _solvedReports.value = repository.getSolvedReports()
+                joinAll()
+                _loading.value = false
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun markReportAsSolved(reportId: Int) {
         viewModelScope.launch {
-            val isSuccess = repository.markReportAsSolved(reportId)
-            joinAll()
-            if (isSuccess) {
-                refreshReports()
-                _markedAsSolvedMessage.value = R.string.fragment_report_list_marked_as_solved_snackbar_message
+            try {
+                val isSuccess = repository.markReportAsSolved(reportId)
+                joinAll()
+                if (isSuccess) {
+                    refreshReports()
+                    _markedAsSolvedMessage.value = R.string.fragment_report_list_marked_as_solved_snackbar_message
+                }
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
             }
         }
     }
 
     fun refreshReports() {
         viewModelScope.launch {
-            _unsolvedReports.value = repository.getUnsolvedReports()
-            _solvedReports.value = repository.getSolvedReports()
+            try {
+                _unsolvedReports.value = repository.getUnsolvedReports()
+                _solvedReports.value = repository.getSolvedReports()
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 

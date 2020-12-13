@@ -38,20 +38,24 @@ class MatchUpdateViewModel(
 
     init {
         viewModelScope.launch {
-            _match.value = repository.getMatch(matchId)
-            joinAll()
-            _chosenDateTime.value = match.value!!.time
-            _loading.value = false
+            try {
+                _match.value = repository.getMatch(matchId)
+                joinAll()
+                _chosenDateTime.value = match.value!!.time
+                _loading.value = false
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun updateMatch(latitude: Double?, longitude: Double?, length: Int, playersPerTeam: Int) {
-        viewModelScope.launch {
-            if (chosenDateTime.value == null)
-                _snackbarMessage.value = R.string.fragment_match_create_no_date_time_set_message
-            else if (!isCorrectTime(chosenDateTime.value!!))
-                _snackbarMessage.value = R.string.fragment_match_create_incorrect_date_time_message
-            else {
+        if (chosenDateTime.value == null)
+            _snackbarMessage.value = R.string.fragment_match_create_no_date_time_set_message
+        else if (!isCorrectTime(chosenDateTime.value!!))
+            _snackbarMessage.value = R.string.fragment_match_create_incorrect_date_time_message
+        else {
+            viewModelScope.launch {
                 with (_match.value!!) {
                     this.time = chosenDateTime.value!!
                     this.latitude = latitude
@@ -60,9 +64,13 @@ class MatchUpdateViewModel(
                     this.playersPerTeam = playersPerTeam
                 }
 
-                val updatedMatch = repository.updateMatch(match.value!!)
-                joinAll()
-                _updated.value = updatedMatch.matchId!!
+                try {
+                    val updatedMatch = repository.updateMatch(match.value!!)
+                    joinAll()
+                    _updated.value = updatedMatch.matchId!!
+                } catch (exception: Exception) {
+                    _snackbarMessage.value = R.string.server_exception_message
+                }
             }
         }
     }

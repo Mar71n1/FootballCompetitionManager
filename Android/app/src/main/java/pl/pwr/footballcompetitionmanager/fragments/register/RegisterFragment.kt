@@ -70,10 +70,10 @@ class RegisterFragment : Fragment() {
         })
 
         viewModel.registerError.observe(viewLifecycleOwner, Observer {
-            if (it) {
+            if (it != null) {
                 binding.emailTextField.error = " "
                 binding.usernameTextField.error = " "
-                Snackbar.make(binding.linearLayout, R.string.fragment_register_register_error_message, Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.linearLayout, getString(R.string.fragment_register_register_error_message), Snackbar.LENGTH_LONG).show()
             }
         })
     }

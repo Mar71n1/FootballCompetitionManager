@@ -53,7 +53,10 @@ class TeamUpdateFragment : Fragment() {
             binding.descriptionTextField.error = getString(it)
         })
 
-        viewModel.getSnackbarMessage().observe(viewLifecycleOwner, Observer { Snackbar.make(binding.mainLinearLayout, getString(it), Snackbar.LENGTH_SHORT).show() })
+        viewModel.getSnackbarMessage().observe(viewLifecycleOwner, Observer {
+            if (it != null)
+                Snackbar.make(binding.mainLinearLayout, getString(it), Snackbar.LENGTH_SHORT).show()
+        })
 
         viewModel.updated.observe(viewLifecycleOwner, Observer {
             if (it)

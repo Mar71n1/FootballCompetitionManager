@@ -56,7 +56,8 @@ class LeagueCreateFragment : Fragment() {
         })
 
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
-            Snackbar.make(binding.mainLinearLayout, getString(it), Snackbar.LENGTH_SHORT).show()
+            if (it != null)
+                Snackbar.make(binding.mainLinearLayout, getString(it), Snackbar.LENGTH_SHORT).show()
         })
     }
 

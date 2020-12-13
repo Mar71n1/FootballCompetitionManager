@@ -57,23 +57,8 @@ class LeagueDetailViewModel(
     init {
         Timber.d("init")
         viewModelScope.launch {
-            _leagueSeason.value = repository.getLeagueSeasonByCompetitionId(competitionId)
-            joinAll()
-            _matches.value = repository.getCompetitionMatches(leagueSeason.value!!.competition.competitionId!!)
-            _results.value = repository.getCompetitionResults(leagueSeason.value!!.competition.competitionId!!)
-            _teams.value = repository.getCompetitionTeams(leagueSeason.value!!.competition.competitionId!!)
-            _ownedTeams.value = repository.getOwnerTeams(getCurrentUserId())
-            _requests.value = repository.getPendingRequestsTeamsForCompetition(leagueSeason.value!!.competition.competitionId!!)
-            joinAll()
-            _table.value = prepareTable()
-            _loading.value = false
-        }
-    }
-
-    fun refreshData() {
-        viewModelScope.launch {
-            if (!loading.value!!) {
-                _leagueSeason.value = repository.getLeagueSeasonByCompetitionId(leagueSeason.value!!.competition.competitionId!!)
+            try {
+                _leagueSeason.value = repository.getLeagueSeasonByCompetitionId(competitionId)
                 joinAll()
                 _matches.value = repository.getCompetitionMatches(leagueSeason.value!!.competition.competitionId!!)
                 _results.value = repository.getCompetitionResults(leagueSeason.value!!.competition.competitionId!!)
@@ -82,92 +67,153 @@ class LeagueDetailViewModel(
                 _requests.value = repository.getPendingRequestsTeamsForCompetition(leagueSeason.value!!.competition.competitionId!!)
                 joinAll()
                 _table.value = prepareTable()
+                _loading.value = false
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
+        }
+    }
+
+    fun refreshData() {
+        viewModelScope.launch {
+            try {
+                if (!loading.value!!) {
+                    _leagueSeason.value = repository.getLeagueSeasonByCompetitionId(leagueSeason.value!!.competition.competitionId!!)
+                    joinAll()
+                    _matches.value = repository.getCompetitionMatches(leagueSeason.value!!.competition.competitionId!!)
+                    _results.value = repository.getCompetitionResults(leagueSeason.value!!.competition.competitionId!!)
+                    _teams.value = repository.getCompetitionTeams(leagueSeason.value!!.competition.competitionId!!)
+                    _ownedTeams.value = repository.getOwnerTeams(getCurrentUserId())
+                    _requests.value = repository.getPendingRequestsTeamsForCompetition(leagueSeason.value!!.competition.competitionId!!)
+                    joinAll()
+                    _table.value = prepareTable()
+                }
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
             }
         }
     }
 
     fun deleteLeague() {
         viewModelScope.launch {
-            repository.deleteLeagueSeason(leagueSeason.value!!.leagueSeasonId!!)
-            joinAll()
-            _leagueSeason.value = null
+            try {
+                repository.deleteLeagueSeason(leagueSeason.value!!.leagueSeasonId!!)
+                joinAll()
+                _leagueSeason.value = null
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun startCompetition() {
         viewModelScope.launch {
-            repository.startCompetition(leagueSeason.value!!.competition.competitionId!!)
-            joinAll()
-            _leagueSeason.value = repository.getLeagueSeasonByCompetitionId(leagueSeason.value!!.competition.competitionId!!)
-            _snackbarMessage.value = R.string.fragment_league_detail_competition_started_snackbar_message
-            _loading.value = false
+            try {
+                repository.startCompetition(leagueSeason.value!!.competition.competitionId!!)
+                joinAll()
+                _leagueSeason.value = repository.getLeagueSeasonByCompetitionId(leagueSeason.value!!.competition.competitionId!!)
+                joinAll()
+                _snackbarMessage.value = R.string.fragment_league_detail_competition_started_snackbar_message
+                _loading.value = false
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun finishCompetition() {
         viewModelScope.launch {
-            repository.finishCompetition(leagueSeason.value!!.competition.competitionId!!)
-            joinAll()
-            _leagueSeason.value = repository.getLeagueSeasonByCompetitionId(leagueSeason.value!!.competition.competitionId!!)
-            _matches.value = repository.getCompetitionMatches(leagueSeason.value!!.competition.competitionId!!)
-            _snackbarMessage.value = R.string.fragment_league_detail_competition_finished_snackbar_message
+            try {
+                repository.finishCompetition(leagueSeason.value!!.competition.competitionId!!)
+                joinAll()
+                _leagueSeason.value = repository.getLeagueSeasonByCompetitionId(leagueSeason.value!!.competition.competitionId!!)
+                _matches.value = repository.getCompetitionMatches(leagueSeason.value!!.competition.competitionId!!)
+                joinAll()
+                _snackbarMessage.value = R.string.fragment_league_detail_competition_finished_snackbar_message
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun sendRequestToJoin(position: Int) {
         viewModelScope.launch {
-            repository.sendRequestToJoinCompetition(leagueSeason.value!!.competition.competitionId!!, ownedTeams.value!![position].teamId!!)
-            joinAll()
-            _snackbarMessage.value = R.string.fragment_league_detail_request_sent_successful_message
-            _requests.value = repository.getPendingRequestsTeamsForCompetition(leagueSeason.value!!.competition.competitionId!!)
+            try {
+                repository.sendRequestToJoinCompetition(leagueSeason.value!!.competition.competitionId!!, ownedTeams.value!![position].teamId!!)
+                joinAll()
+                _snackbarMessage.value = R.string.fragment_league_detail_request_sent_successful_message
+                _requests.value = repository.getPendingRequestsTeamsForCompetition(leagueSeason.value!!.competition.competitionId!!)
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun cancelRequest() {
         viewModelScope.launch {
-            repository.cancelTeamRequest(leagueSeason.value!!.competition.competitionId!!, requests.value!!.first{ it.ownerId == getCurrentUserId() }.teamId!!)
-            joinAll()
-            _snackbarMessage.value = R.string.fragment_league_detail_request_cancel_successful_message
-            _requests.value = repository.getPendingRequestsTeamsForCompetition(leagueSeason.value!!.competition.competitionId!!)
+            try {
+                repository.cancelTeamRequest(leagueSeason.value!!.competition.competitionId!!, requests.value!!.first{ it.ownerId == getCurrentUserId() }.teamId!!)
+                joinAll()
+                _snackbarMessage.value = R.string.fragment_league_detail_request_cancel_successful_message
+                _requests.value = repository.getPendingRequestsTeamsForCompetition(leagueSeason.value!!.competition.competitionId!!)
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun leaveCompetition() {
         viewModelScope.launch {
-            repository.removeTeamFromCompetition(leagueSeason.value!!.competition.competitionId!!, teams.value!!.first { it.ownerId == getCurrentUserId() }.teamId!!)
-            joinAll()
-            _teams.value = repository.getCompetitionTeams(leagueSeason.value!!.competition.competitionId!!)
-            joinAll()
-            _snackbarMessage.value = R.string.fragment_league_detail_competition_left_message
+            try {
+                repository.removeTeamFromCompetition(leagueSeason.value!!.competition.competitionId!!, teams.value!!.first { it.ownerId == getCurrentUserId() }.teamId!!)
+                joinAll()
+                _teams.value = repository.getCompetitionTeams(leagueSeason.value!!.competition.competitionId!!)
+                joinAll()
+                _snackbarMessage.value = R.string.fragment_league_detail_competition_left_message
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun removeTeam(teamId: Int) {
         viewModelScope.launch {
-            repository.removeTeamFromCompetition(leagueSeason.value!!.competition.competitionId!!, teamId)
-            joinAll()
-            _teams.value = repository.getCompetitionTeams(leagueSeason.value!!.competition.competitionId!!)
-            joinAll()
-            _snackbarMessage.value = R.string.fragment_league_detail_team_removed_message
+            try {
+                repository.removeTeamFromCompetition(leagueSeason.value!!.competition.competitionId!!, teamId)
+                joinAll()
+                _teams.value = repository.getCompetitionTeams(leagueSeason.value!!.competition.competitionId!!)
+                joinAll()
+                _snackbarMessage.value = R.string.fragment_league_detail_team_removed_message
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun acceptTeamRequest(teamId: Int) {
         viewModelScope.launch {
-            repository.acceptTeamRequest(leagueSeason.value!!.competition.competitionId!!, teamId)
-            joinAll()
-            _snackbarMessage.value = R.string.fragment_league_detail_request_accept_successful_message
-            _teams.value = repository.getCompetitionTeams(leagueSeason.value!!.competition.competitionId!!)
-            _requests.value = repository.getPendingRequestsTeamsForCompetition(leagueSeason.value!!.competition.competitionId!!)
+            try {
+                repository.acceptTeamRequest(leagueSeason.value!!.competition.competitionId!!, teamId)
+                joinAll()
+                _snackbarMessage.value = R.string.fragment_league_detail_request_accept_successful_message
+                _teams.value = repository.getCompetitionTeams(leagueSeason.value!!.competition.competitionId!!)
+                _requests.value = repository.getPendingRequestsTeamsForCompetition(leagueSeason.value!!.competition.competitionId!!)
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun rejectTeamRequest(teamId: Int) {
         viewModelScope.launch {
-            repository.rejectTeamRequest(leagueSeason.value!!.competition.competitionId!!, teamId)
-            joinAll()
-            _snackbarMessage.value = R.string.fragment_league_detail_request_reject_successful_message
-            _requests.value = repository.getPendingRequestsTeamsForCompetition(leagueSeason.value!!.competition.competitionId!!)
+            try {
+                repository.rejectTeamRequest(leagueSeason.value!!.competition.competitionId!!, teamId)
+                joinAll()
+                _snackbarMessage.value = R.string.fragment_league_detail_request_reject_successful_message
+                _requests.value = repository.getPendingRequestsTeamsForCompetition(leagueSeason.value!!.competition.competitionId!!)
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 

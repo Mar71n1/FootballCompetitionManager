@@ -153,6 +153,11 @@ class RemoteRepository : IRepository {
     override suspend fun createLeagueSeason(leagueSeason: LeagueSeason): LeagueSeason {
         try {
             return Api.retrofitService.createLeagueSeason(createCredentialsBasicAuthentication(), leagueSeason)
+        } catch (httpException: HttpException) {
+            if (httpException.message!!.contains("400"))
+                throw IllegalArgumentException()
+            else
+                throw httpException
         } catch (exception: Exception) {
             Timber.e(exception)
             throw exception
@@ -162,6 +167,11 @@ class RemoteRepository : IRepository {
     override suspend fun updateLeagueSeason(leagueSeason: LeagueSeason): LeagueSeason {
         try {
             return Api.retrofitService.updateLeagueSeason(createCredentialsBasicAuthentication(), leagueSeason.leagueSeasonId!!, leagueSeason)
+        } catch (httpException: HttpException) {
+            if (httpException.message!!.contains("400"))
+                throw IllegalArgumentException()
+            else
+                throw httpException
         } catch (exception: Exception) {
             Timber.e(exception)
             throw exception
@@ -403,7 +413,7 @@ class RemoteRepository : IRepository {
     override suspend fun getTeamsForUser(userId: Int): List<Team> {
         return try {
             Api.retrofitService.getTeamsForUser(createCredentialsBasicAuthentication(), userId)
-        } catch (httpException: Exception) {
+        } catch (httpException: HttpException) {
             if (httpException.message!!.contains("404"))
                 listOf()
             else
@@ -525,14 +535,18 @@ class RemoteRepository : IRepository {
     }
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Users
-    override suspend fun register(email: String, username: String, password: String, confirmPassword: String): Boolean {
+    override suspend fun register(email: String, username: String, password: String, confirmPassword: String) {
         return try {
             Api.retrofitService.register(email, username, password, confirmPassword)         //TeamsApi.retrofitService.register(UserToRegister(email, username, password, confirmPassword))
             joinAll()
-            true
-        } catch (exception: HttpException) {
+        } catch (httpException: Exception) {
+            if (httpException.message!!.contains("400"))
+                throw IllegalArgumentException()
+            else
+                throw Exception("Unknown HttpException")
+        } catch (exception: Exception) {
             Timber.d("Register failed")
-            false
+            throw exception
         }
     }
 

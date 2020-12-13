@@ -10,7 +10,7 @@
     <string name="minutes">%d minut</string>
     <string name="number_of_players_per_team">%d vs %d</string>
 
-    <string name="server_exception_message">Wystąpił błąd po stronie serwera</string>
+    <string name="server_exception_message">Wystąpił błąd podczas połączenia z serwerem. Spróbuj ponownie</string>
 
     <!-- Change data fragment -->
     <string name="fragment_change_data_toolbar_title">Zmiana danych</string>
@@ -163,6 +163,16 @@
     <string name="fragment_match_detail_score_set_message">Wynik meczu został ustalony</string>
     <string name="fragment_match_detail_score_accepted_message">Wynik meczu został zaakceptowany</string>
     <string name="fragment_match_detail_score_rejected_message">Wynik meczu został odrzucony</string>
+
+    <string name="fragment_match_detail_match_planned_info">Mecz został zaplanowany</string>
+<!--    <string name="fragment_match_detail_match_played_info">Mecz został rozegrany, czas na ustalenie wyniku do ${match.time.plusDays(7).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))}</string>-->
+    <string name="fragment_match_detail_match_score_unknown_info">Wynik meczu nie został podany</string>
+    <string name="fragment_match_detail_match_proposed_home_team_owner_info">Mecz został zaproponowany przez właściciela drużyny domowej</string>
+    <string name="fragment_match_detail_match_proposed_away_team_owner_info">Mecz został zaproponowany przez właściciela drużyny wyjazdowej</string>
+    <string name="fragment_match_detail_match_score_proposed_home_team_owner_info">Wynik meczu został zaproponowany przez właściciela drużyny domowej</string>
+    <string name="fragment_match_detail_match_score_proposed_away_team_owner_info">Wynik meczu został zaproponowany przez właściciela drużyny wyjazdowej</string>
+    <string name="fragment_match_detail_match_score_proposed_2nd_time_home_team_owner_info">Nowy wynik meczu został zaproponowany przez właściciela drużyny domowej</string>
+    <string name="fragment_match_detail_match_score_proposed_2nd_time_away_team_owner_info">Nowy wynik meczu został zaproponowany przez właściciela drużyny wyjazdowej</string>
 
     <!-- Match status -->
     <string name="match_status_played_no_score_info">Mecz oczekuje na ustalenie wyniku</string>

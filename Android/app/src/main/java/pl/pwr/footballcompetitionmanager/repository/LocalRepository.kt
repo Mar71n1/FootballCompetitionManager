@@ -63,7 +63,7 @@ class LocalRepository : IRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun register(email: String, username: String, password: String, confirmPassword: String): Boolean {
+    override suspend fun register(email: String, username: String, password: String, confirmPassword: String) {
         TODO("Not yet implemented")
     }
 

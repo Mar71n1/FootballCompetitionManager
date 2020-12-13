@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
+import pl.pwr.footballcompetitionmanager.R
 import pl.pwr.footballcompetitionmanager.model.*
 import pl.pwr.footballcompetitionmanager.repository.IRepository
+import pl.pwr.footballcompetitionmanager.utils.SingleLiveEvent
 
 class HomeViewModel(
     private val repository: IRepository
@@ -48,27 +50,39 @@ class HomeViewModel(
             return _competitions
         }
 
-    init {
-        _user.value = repository.getCurrentUser()
-        viewModelScope.launch {
-            _matches.value = repository.getMatchesForUser(user.value!!.userId)
-            _teams.value = repository.getTeamsForUser(user.value!!.userId)
-            _competitions.value = repository.getCompetitionsForUser(user.value!!.userId)
-            joinAll()
-            _loading.value = false
-        }
-    }
-
     private val _navigateToCreate = MutableLiveData<Boolean>(false)
     val navigateToCreate: LiveData<Boolean>
         get() = _navigateToCreate
 
+    private val _snackbarMessage = SingleLiveEvent<Int>()
+    fun getSnackbarMessage(): SingleLiveEvent<Int> = _snackbarMessage
+
+    init {
+        _user.value = repository.getCurrentUser()
+        viewModelScope.launch {
+            try {
+                _matches.value = repository.getMatchesForUser(user.value!!.userId)
+                _teams.value = repository.getTeamsForUser(user.value!!.userId)
+                _competitions.value = repository.getCompetitionsForUser(user.value!!.userId)
+                joinAll()
+            } catch(exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            } finally {
+                _loading.value = false
+            }
+        }
+    }
+
     fun refreshData() {
         viewModelScope.launch {
-            _matches.value = repository.getMatchesForUser(user.value!!.userId)
-            _teams.value = repository.getTeamsForUser(user.value!!.userId)
-            _competitions.value = repository.getCompetitionsForUser(user.value!!.userId)
-            joinAll()
+            try {
+                _matches.value = repository.getMatchesForUser(user.value!!.userId)
+                _teams.value = repository.getTeamsForUser(user.value!!.userId)
+                _competitions.value = repository.getCompetitionsForUser(user.value!!.userId)
+                joinAll()
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 

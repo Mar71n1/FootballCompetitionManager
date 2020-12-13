@@ -1,6 +1,5 @@
 package pl.pwr.footballcompetitionmanager.fragments.register
 
-import androidx.core.util.PatternsCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -41,8 +40,8 @@ class RegisterViewModel(
     val registerSuccessful: LiveData<Boolean>
         get() = _registerSuccessful
 
-    private val _registerError = MutableLiveData<Boolean>(false)
-    val registerError: LiveData<Boolean>
+    private val _registerError = MutableLiveData<Int>(null)
+    val registerError: LiveData<Int>
         get() = _registerError
 
     fun register(email: String, username: String, password: String, confirmPassword: String) {
@@ -73,16 +72,18 @@ class RegisterViewModel(
             _registerInProgress.value = true
 
             viewModelScope.launch {
-                val operationSuccessful = repository.register(email, username, password, confirmPassword)
-                joinAll()
-                if (operationSuccessful) {
+                try {
+                    repository.register(email, username, password, confirmPassword)
+                    joinAll()
                     Timber.d("Rejestracja powiodła się")
                     _registerSuccessful.value = true
-                } else {
+                    _registerInProgress.value = false
+                } catch (exception: IllegalArgumentException) {
                     Timber.d("Rejestracja nie powiodła się")
-                    _registerError.value = true
+                    _registerError.value = R.string.fragment_register_register_error_message
+                } catch (exception: Exception) {
+                    _registerError.value = R.string.server_exception_message
                 }
-                _registerInProgress.value = false
             }
         }
     }

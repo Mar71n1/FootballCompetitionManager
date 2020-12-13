@@ -164,6 +164,11 @@ class HomeFragment : Fragment() {
                 viewModel.navigatedToCreate()
             }
         })
+
+        viewModel.getSnackbarMessage().observe(viewLifecycleOwner, Observer {
+            if (it != null)
+                showSnackbar(getString(it))
+        })
     }
 
     private fun createAdapters() {

@@ -47,24 +47,34 @@ class MatchCreateViewModel(
 
     init {
         viewModelScope.launch {
-            _homeTeam.value = repository.getTeam(homeTeamId)
-            _awayTeam.value = repository.getTeam(awayTeamId)
-            if (competitionId != -1)
-                _competition.value = repository.getCompetition(competitionId)
-            joinAll()
+            try {
+                _homeTeam.value = repository.getTeam(homeTeamId)
+                _awayTeam.value = repository.getTeam(awayTeamId)
+                if (competitionId != -1)
+                    _competition.value = repository.getCompetition(competitionId)
+                joinAll()
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun createMatch(latitude: Double?, longitude: Double?, length: Int, playersPerTeam: Int) {
-        viewModelScope.launch {
-            if (chosenDateTime.value == null)
-                _snackbarMessage.value = R.string.fragment_match_create_no_date_time_set_message
-            else if (!isCorrectTime(chosenDateTime.value!!))
-                _snackbarMessage.value = R.string.fragment_match_create_incorrect_date_time_message
-            else if (competition.value != null)
-                _newMatchId.value = repository.createMatch(Match(competition.value!!.competitionId!!, homeTeam.value!!.teamId!!, awayTeam.value!!.teamId!!, chosenDateTime.value!!, latitude, longitude, length, playersPerTeam)).matchId!!
-            else
-                _newMatchId.value = repository.createMatch(Match(null, homeTeam.value!!.teamId!!, awayTeam.value!!.teamId!!, chosenDateTime.value!!, latitude, longitude, length, playersPerTeam)).matchId!!
+        if (chosenDateTime.value == null)
+            _snackbarMessage.value = R.string.fragment_match_create_no_date_time_set_message
+        else if (!isCorrectTime(chosenDateTime.value!!))
+            _snackbarMessage.value = R.string.fragment_match_create_incorrect_date_time_message
+        else {
+            viewModelScope.launch {
+                try {
+                    if (competition.value != null)
+                        _newMatchId.value = repository.createMatch(Match(competition.value!!.competitionId!!, homeTeam.value!!.teamId!!, awayTeam.value!!.teamId!!, chosenDateTime.value!!, latitude, longitude, length, playersPerTeam)).matchId!!
+                    else
+                        _newMatchId.value = repository.createMatch(Match(null, homeTeam.value!!.teamId!!, awayTeam.value!!.teamId!!, chosenDateTime.value!!, latitude, longitude, length, playersPerTeam)).matchId!!
+                } catch (exception: Exception) {
+                    _snackbarMessage.value = R.string.server_exception_message
+                }
+            }
         }
     }
 

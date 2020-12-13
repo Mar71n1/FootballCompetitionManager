@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -52,6 +53,7 @@ class MatchCreateFragment : Fragment() {
 
         setupGoogleMap()
         setupSliderListener()
+        observeEditTexts()
 
         binding.dateTimeButton.setOnClickListener { pickDateTime() }
 
@@ -204,5 +206,14 @@ class MatchCreateFragment : Fragment() {
                 }
             }
             .show()
+    }
+
+    private fun observeEditTexts() {
+        binding.matchLengthTextField.editText?.doAfterTextChanged {
+            if (it.toString().isNotEmpty())
+                binding.matchLengthTextField.error = null
+            else
+                binding.matchLengthTextField.error = " "
+        }
     }
 }

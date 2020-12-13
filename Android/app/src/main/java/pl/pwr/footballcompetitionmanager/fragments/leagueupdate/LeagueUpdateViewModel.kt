@@ -35,9 +35,13 @@ class LeagueUpdateViewModel(
 
     init {
         viewModelScope.launch {
-            _leagueSeason.value = repository.getLeagueSeason(leagueSeasonId)
-            joinAll()
-            _loading.value = false
+            try {
+                _leagueSeason.value = repository.getLeagueSeason(leagueSeasonId)
+                joinAll()
+                _loading.value = false
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
@@ -67,7 +71,6 @@ class LeagueUpdateViewModel(
                     _loading.value = false
                     _snackbarMessage.value = R.string.fragment_league_create_unique_name_error
                 }
-
             }
         }
     }

@@ -38,7 +38,11 @@ class TeamUpdateViewModel(
 
     init {
         viewModelScope.launch {
-            _team.value = repository.getTeam(teamId)
+            try {
+                _team.value = repository.getTeam(teamId)
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 

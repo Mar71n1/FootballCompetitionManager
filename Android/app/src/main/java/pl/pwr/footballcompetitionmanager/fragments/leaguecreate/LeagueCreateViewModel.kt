@@ -39,8 +39,10 @@ class LeagueCreateViewModel(
                 try {
                     val competitionSeason: LeagueSeason = repository.createLeagueSeason(leagueSeason)
                     _newCompetitionId.value = competitionSeason.competition.competitionId
-                } catch (exception: Exception) {
+                } catch (exception: IllegalArgumentException) {
                     _errorMessage.value = R.string.fragment_league_create_unique_name_error
+                } catch (exception: Exception) {
+                    _errorMessage.value = R.string.server_exception_message
                 }
             }
         }

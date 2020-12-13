@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
+import pl.pwr.footballcompetitionmanager.R
 import pl.pwr.footballcompetitionmanager.model.Competition
 import pl.pwr.footballcompetitionmanager.model.Team
 import pl.pwr.footballcompetitionmanager.repository.IRepository
+import pl.pwr.footballcompetitionmanager.utils.SingleLiveEvent
 
 class SearchViewModel(private val repository: IRepository) : ViewModel() {
 
@@ -34,13 +36,20 @@ class SearchViewModel(private val repository: IRepository) : ViewModel() {
             return _competitions
         }
 
+    private val _snackbarMessage = SingleLiveEvent<Int>()
+    fun getSnackbarMessage(): SingleLiveEvent<Int> = _snackbarMessage
+
     fun search(searchString: String) {
         _loading.value = true
         viewModelScope.launch {
-            _teams.value = repository.searchTeamsByName(searchString)
-            _competitions.value = repository.searchCompetitionsByName(searchString)
-            joinAll()
-            _loading.value = false
+            try {
+                _teams.value = repository.searchTeamsByName(searchString)
+                _competitions.value = repository.searchCompetitionsByName(searchString)
+                joinAll()
+                _loading.value = false
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 

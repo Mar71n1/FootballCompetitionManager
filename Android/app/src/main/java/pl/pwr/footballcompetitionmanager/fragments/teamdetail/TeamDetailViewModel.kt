@@ -69,101 +69,137 @@ class TeamDetailViewModel(
 
     init {
         viewModelScope.launch {
-            _team.value = repository.getTeam(teamId)
-            joinAll()
-            _teamReady.value = true
-            setCurrentUserStatus(repository.getActualRequestStatus(team.value!!.teamId!!, repository.getCurrentUser().userId))
-            _matches.value = repository.getIncomingMatchesByTeam(team.value!!.teamId!!)
-            _results.value = repository.getLatestResultsByTeam(team.value!!.teamId!!)
-            _competitions.value = repository.getCompetitionsByTeam(team.value!!.teamId!!)
-            _players.value = repository.getPlayersByTeam(team.value!!.teamId!!)
-            if (isCurrentUserOwner())
-                _requestsUsers.value = repository.getPendingRequestsUsersForTeam(team.value!!.teamId!!)
-            else
-                _currentUserOwnedTeams.value = repository.getOwnerTeams(repository.getCurrentUser().userId)
-            joinAll()
-            _loading.value = false
+            try {
+                _team.value = repository.getTeam(teamId)
+                joinAll()
+                _teamReady.value = true
+                setCurrentUserStatus(repository.getActualRequestStatus(team.value!!.teamId!!, repository.getCurrentUser().userId))
+                _matches.value = repository.getIncomingMatchesByTeam(team.value!!.teamId!!)
+                _results.value = repository.getLatestResultsByTeam(team.value!!.teamId!!)
+                _competitions.value = repository.getCompetitionsByTeam(team.value!!.teamId!!)
+                _players.value = repository.getPlayersByTeam(team.value!!.teamId!!)
+                if (isCurrentUserOwner())
+                    _requestsUsers.value = repository.getPendingRequestsUsersForTeam(team.value!!.teamId!!)
+                else
+                    _currentUserOwnedTeams.value = repository.getOwnerTeams(repository.getCurrentUser().userId)
+                joinAll()
+                _loading.value = false
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun refreshData() {
         viewModelScope.launch {
-            _team.value = repository.getTeam(team.value!!.teamId!!)
-            joinAll()
-            _matches.value = repository.getIncomingMatchesByTeam(team.value!!.teamId!!)
-            _results.value = repository.getLatestResultsByTeam(team.value!!.teamId!!)
-            _competitions.value = repository.getCompetitionsByTeam(team.value!!.teamId!!)
-            _players.value = repository.getPlayersByTeam(team.value!!.teamId!!)
-            if (isCurrentUserOwner())
-                _requestsUsers.value = repository.getPendingRequestsUsersForTeam(team.value!!.teamId!!)
-            else
-                _currentUserOwnedTeams.value = repository.getOwnerTeams(repository.getCurrentUser().userId)
+            try {
+                _team.value = repository.getTeam(team.value!!.teamId!!)
+                joinAll()
+                _matches.value = repository.getIncomingMatchesByTeam(team.value!!.teamId!!)
+                _results.value = repository.getLatestResultsByTeam(team.value!!.teamId!!)
+                _competitions.value = repository.getCompetitionsByTeam(team.value!!.teamId!!)
+                _players.value = repository.getPlayersByTeam(team.value!!.teamId!!)
+                if (isCurrentUserOwner())
+                    _requestsUsers.value = repository.getPendingRequestsUsersForTeam(team.value!!.teamId!!)
+                else
+                    _currentUserOwnedTeams.value = repository.getOwnerTeams(repository.getCurrentUser().userId)
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
     
     fun deleteTeam() {
         viewModelScope.launch {
-            repository.deleteTeam(team.value!!.teamId!!)
-            joinAll()
-            _team.value = null
+            try {
+                repository.deleteTeam(team.value!!.teamId!!)
+                joinAll()
+                _team.value = null
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun sendRequestToJoinTeam() {
         viewModelScope.launch {
-            repository.sendRequestToJoinTeam(team.value!!.teamId!!)
-            joinAll()
-            _snackbarMessage.value = R.string.fragment_team_detail_request_sent_successful_message
-            setCurrentUserStatus(repository.getActualRequestStatus(team.value!!.teamId!!, repository.getCurrentUser().userId))
+            try {
+                repository.sendRequestToJoinTeam(team.value!!.teamId!!)
+                joinAll()
+                _snackbarMessage.value = R.string.fragment_team_detail_request_sent_successful_message
+                setCurrentUserStatus(repository.getActualRequestStatus(team.value!!.teamId!!, repository.getCurrentUser().userId))
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun cancelRequest() {
         viewModelScope.launch {
-            repository.cancelUserRequest(team.value!!.teamId!!, repository.getCurrentUser().userId)
-            joinAll()
-            _snackbarMessage.value = R.string.fragment_team_detail_request_cancel_successful_message
-            setCurrentUserStatus(repository.getActualRequestStatus(team.value!!.teamId!!, repository.getCurrentUser().userId))
+            try {
+                repository.cancelUserRequest(team.value!!.teamId!!, repository.getCurrentUser().userId)
+                joinAll()
+                _snackbarMessage.value = R.string.fragment_team_detail_request_cancel_successful_message
+                setCurrentUserStatus(repository.getActualRequestStatus(team.value!!.teamId!!, repository.getCurrentUser().userId))
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun leaveTeam() {
         viewModelScope.launch {
-            repository.removeUserFromTeam(team.value!!.teamId!!, repository.getCurrentUser().userId)
-            joinAll()
-            setCurrentUserStatus(repository.getActualRequestStatus(team.value!!.teamId!!, repository.getCurrentUser().userId))
-            _players.value = repository.getPlayersByTeam(team.value!!.teamId!!)
-            joinAll()
-            _snackbarMessage.value = R.string.fragment_team_detail_team_left_message
+            try {
+                repository.removeUserFromTeam(team.value!!.teamId!!, repository.getCurrentUser().userId)
+                joinAll()
+                setCurrentUserStatus(repository.getActualRequestStatus(team.value!!.teamId!!, repository.getCurrentUser().userId))
+                _players.value = repository.getPlayersByTeam(team.value!!.teamId!!)
+                joinAll()
+                _snackbarMessage.value = R.string.fragment_team_detail_team_left_message
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun removeUser(userId: Int) {
         viewModelScope.launch {
-            repository.removeUserFromTeam(team.value!!.teamId!!, userId)
-            joinAll()
-            _snackbarMessage.value = R.string.fragment_team_detail_user_removed_message
-            _players.value = repository.getPlayersByTeam(team.value!!.teamId!!)
+            try {
+                repository.removeUserFromTeam(team.value!!.teamId!!, userId)
+                joinAll()
+                _snackbarMessage.value = R.string.fragment_team_detail_user_removed_message
+                _players.value = repository.getPlayersByTeam(team.value!!.teamId!!)
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun acceptPlayerRequest(userId: Int) {
         viewModelScope.launch {
-            repository.acceptUserRequest(team.value!!.teamId!!, userId)
-            joinAll()
-            _snackbarMessage.value = R.string.fragment_team_detail_request_accept_successful_message
-            _players.value = repository.getPlayersByTeam(team.value!!.teamId!!)
-            _requestsUsers.value = repository.getPendingRequestsUsersForTeam(team.value!!.teamId!!)
+            try {
+                repository.acceptUserRequest(team.value!!.teamId!!, userId)
+                joinAll()
+                _snackbarMessage.value = R.string.fragment_team_detail_request_accept_successful_message
+                _players.value = repository.getPlayersByTeam(team.value!!.teamId!!)
+                _requestsUsers.value = repository.getPendingRequestsUsersForTeam(team.value!!.teamId!!)
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
     fun rejectPlayerRequest(userId: Int) {
         viewModelScope.launch {
-            repository.rejectUserRequest(team.value!!.teamId!!, userId)
-            joinAll()
-            _snackbarMessage.value = R.string.fragment_team_detail_request_reject_successful_message
-            _players.value = repository.getPlayersByTeam(team.value!!.teamId!!)
-            _requestsUsers.value = repository.getPendingRequestsUsersForTeam(team.value!!.teamId!!)
+            try {
+                repository.rejectUserRequest(team.value!!.teamId!!, userId)
+                joinAll()
+                _snackbarMessage.value = R.string.fragment_team_detail_request_reject_successful_message
+                _players.value = repository.getPlayersByTeam(team.value!!.teamId!!)
+                _requestsUsers.value = repository.getPendingRequestsUsersForTeam(team.value!!.teamId!!)
+            } catch (exception: Exception) {
+                _snackbarMessage.value = R.string.server_exception_message
+            }
         }
     }
 
