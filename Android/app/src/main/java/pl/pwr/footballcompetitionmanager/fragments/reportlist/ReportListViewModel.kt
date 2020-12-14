@@ -40,9 +40,10 @@ class ReportListViewModel(
                 _unsolvedReports.value = repository.getUnsolvedReports()
                 _solvedReports.value = repository.getSolvedReports()
                 joinAll()
-                _loading.value = false
             } catch (exception: Exception) {
                 _snackbarMessage.value = R.string.server_exception_message
+            } finally {
+                _loading.value = false
             }
         }
     }

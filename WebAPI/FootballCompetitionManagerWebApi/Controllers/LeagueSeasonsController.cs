@@ -41,6 +41,14 @@ namespace FootballCompetitionManagerWebApi.Controllers
         [HttpPost]
         public IHttpActionResult CreateLeagueSeason(LeagueSeason leagueSeason)
         {
+            Competition competition = dbContext.Competitions
+                .FirstOrDefault(c => c.Name.Equals(leagueSeason.Competition.Name));
+
+            if (competition != null)
+            {
+                return Content(HttpStatusCode.BadRequest, "There is already competition with given name");
+            }
+
             try
             {
                 leagueSeason.Competition.CreationDate = DateTime.Now;

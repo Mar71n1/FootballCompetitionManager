@@ -539,7 +539,7 @@ class RemoteRepository : IRepository {
         return try {
             Api.retrofitService.register(email, username, password, confirmPassword)         //TeamsApi.retrofitService.register(UserToRegister(email, username, password, confirmPassword))
             joinAll()
-        } catch (httpException: Exception) {
+        } catch (httpException: HttpException) {
             if (httpException.message!!.contains("400"))
                 throw IllegalArgumentException()
             else

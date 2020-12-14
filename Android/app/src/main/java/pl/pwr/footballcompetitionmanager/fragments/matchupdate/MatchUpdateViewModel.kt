@@ -42,9 +42,10 @@ class MatchUpdateViewModel(
                 _match.value = repository.getMatch(matchId)
                 joinAll()
                 _chosenDateTime.value = match.value!!.time
-                _loading.value = false
             } catch (exception: Exception) {
                 _snackbarMessage.value = R.string.server_exception_message
+            } finally {
+                _loading.value = false
             }
         }
     }

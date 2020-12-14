@@ -77,12 +77,13 @@ class RegisterViewModel(
                     joinAll()
                     Timber.d("Rejestracja powiodła się")
                     _registerSuccessful.value = true
-                    _registerInProgress.value = false
                 } catch (exception: IllegalArgumentException) {
                     Timber.d("Rejestracja nie powiodła się")
                     _registerError.value = R.string.fragment_register_register_error_message
                 } catch (exception: Exception) {
                     _registerError.value = R.string.server_exception_message
+                } finally {
+                    _registerInProgress.value = false
                 }
             }
         }

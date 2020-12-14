@@ -83,9 +83,10 @@ class TeamDetailViewModel(
                 else
                     _currentUserOwnedTeams.value = repository.getOwnerTeams(repository.getCurrentUser().userId)
                 joinAll()
-                _loading.value = false
             } catch (exception: Exception) {
                 _snackbarMessage.value = R.string.server_exception_message
+            } finally {
+                _loading.value = false
             }
         }
     }

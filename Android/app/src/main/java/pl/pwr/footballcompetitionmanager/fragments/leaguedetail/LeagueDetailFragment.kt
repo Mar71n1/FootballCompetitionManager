@@ -109,6 +109,7 @@ class LeagueDetailFragment : Fragment() {
                     }
                     CompetitionStatus.COMPLETED -> {
                         binding.toolbar.subtitle = getString(R.string.competition_status_completed_label)
+                        binding.startFinishCompetitionButtonBackground.visibility = View.GONE
                     }
                 }
                 setupTabLayout()

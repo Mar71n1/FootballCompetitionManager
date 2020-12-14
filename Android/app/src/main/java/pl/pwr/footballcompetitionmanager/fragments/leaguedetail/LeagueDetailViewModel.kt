@@ -67,9 +67,10 @@ class LeagueDetailViewModel(
                 _requests.value = repository.getPendingRequestsTeamsForCompetition(leagueSeason.value!!.competition.competitionId!!)
                 joinAll()
                 _table.value = prepareTable()
-                _loading.value = false
             } catch (exception: Exception) {
                 _snackbarMessage.value = R.string.server_exception_message
+            } finally {
+                _loading.value = false
             }
         }
     }
@@ -114,9 +115,10 @@ class LeagueDetailViewModel(
                 _leagueSeason.value = repository.getLeagueSeasonByCompetitionId(leagueSeason.value!!.competition.competitionId!!)
                 joinAll()
                 _snackbarMessage.value = R.string.fragment_league_detail_competition_started_snackbar_message
-                _loading.value = false
             } catch (exception: Exception) {
                 _snackbarMessage.value = R.string.server_exception_message
+            } finally {
+                _loading.value = false
             }
         }
     }

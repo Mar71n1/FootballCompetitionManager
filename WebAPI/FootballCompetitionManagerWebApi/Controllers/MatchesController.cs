@@ -54,7 +54,11 @@ namespace FootballCompetitionManagerWebApi.Controllers
                 .Where(match => (userTeamsIds.Contains(match.HomeTeamId) || userTeamsIds.Contains(match.AwayTeamId))
                 && (match.MatchStatusId == MatchStatus.PLANNED
                 || match.MatchStatusId == MatchStatus.PROPOSED_HOME_TEAM_OWNER
-                || match.MatchStatusId == MatchStatus.PROPOSED_AWAY_TEAM_OWNER))
+                || match.MatchStatusId == MatchStatus.PROPOSED_AWAY_TEAM_OWNER
+                || match.MatchStatusId == MatchStatus.SCORE_PROPOSED_HOME_TEAM_OWNER
+                || match.MatchStatusId == MatchStatus.SCORE_PROPOSED_AWAY_TEAM_OWNER
+                || match.MatchStatusId == MatchStatus.SCORE_PROPOSED_2ND_TIME_HOME_TEAM_OWNER
+                || match.MatchStatusId == MatchStatus.SCORE_PROPOSED_2ND_TIME_AWAY_TEAM_OWNER))
                 .OrderBy(m => m.Time);
 
             return Content(HttpStatusCode.OK, getMatchesDto(matches));

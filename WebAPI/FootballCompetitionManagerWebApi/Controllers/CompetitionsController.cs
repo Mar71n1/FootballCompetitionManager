@@ -69,7 +69,9 @@ namespace FootballCompetitionManagerWebApi.Controllers
         [HttpGet]
         public IHttpActionResult SearchCompetitionsByName(string name)
         {
-            IQueryable<Competition> competitions = dbContext.Competitions.Where(competition => competition.Name.Contains(name));
+            IQueryable<Competition> competitions = dbContext.Competitions
+                .Where(competition => competition.Name.Contains(name))
+                .OrderBy(competition => competition.Name);
             return Content(HttpStatusCode.OK, getCompetitionsDto(competitions));
         }
 

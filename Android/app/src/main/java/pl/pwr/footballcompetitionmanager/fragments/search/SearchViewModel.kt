@@ -46,9 +46,10 @@ class SearchViewModel(private val repository: IRepository) : ViewModel() {
                 _teams.value = repository.searchTeamsByName(searchString)
                 _competitions.value = repository.searchCompetitionsByName(searchString)
                 joinAll()
-                _loading.value = false
             } catch (exception: Exception) {
                 _snackbarMessage.value = R.string.server_exception_message
+            } finally {
+                _loading.value = false
             }
         }
     }

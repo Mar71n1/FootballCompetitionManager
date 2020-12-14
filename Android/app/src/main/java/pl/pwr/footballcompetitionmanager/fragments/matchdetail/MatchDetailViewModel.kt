@@ -49,9 +49,10 @@ class MatchDetailViewModel(
                 _homeTeam = repository.getTeam(match.value!!.homeTeamId)!!
                 _awayTeam = repository.getTeam(match.value!!.awayTeamId)!!
                 joinAll()
-                _loading.value = false
             } catch (exception: Exception) {
                 _snackbarMessage.value = R.string.server_exception_message
+            } finally {
+                _loading.value = false
             }
         }
     }
@@ -62,10 +63,11 @@ class MatchDetailViewModel(
                 _loading.value = true
                 _match.value = repository.setMatchScore(match.value!!.matchId!!, homeTeamGoals, awayTeamGoals)
                 joinAll()
-                _loading.value = false
                 _snackbarMessage.value = R.string.fragment_match_detail_score_set_message
             } catch (exception: Exception) {
                 _snackbarMessage.value = R.string.server_exception_message
+            } finally {
+                _loading.value = false
             }
         }
     }
@@ -76,10 +78,11 @@ class MatchDetailViewModel(
                 _loading.value = true
                 _match.value = repository.acceptMatchScore(matchId)
                 joinAll()
-                _loading.value = false
                 _snackbarMessage.value = R.string.fragment_match_detail_score_accepted_message
             } catch (exception: Exception) {
                 _snackbarMessage.value = R.string.server_exception_message
+            } finally {
+                _loading.value = false
             }
         }
     }
@@ -90,10 +93,11 @@ class MatchDetailViewModel(
                 _loading.value = true
                 _match.value = repository.rejectMatchScore(matchId)
                 joinAll()
-                _loading.value = false
                 _snackbarMessage.value = R.string.fragment_match_detail_score_rejected_message
             } catch (exception: Exception) {
                 _snackbarMessage.value = R.string.server_exception_message
+            } finally {
+                _loading.value = false
             }
         }
     }
@@ -104,10 +108,11 @@ class MatchDetailViewModel(
                 _loading.value = true
                 _match.value = repository.acceptMatchProposal(matchId)
                 joinAll()
-                _loading.value = false
                 _snackbarMessage.value = R.string.fragment_match_detail_match_accepted_message
             } catch (exception: Exception) {
                 _snackbarMessage.value = R.string.server_exception_message
+            } finally {
+                _loading.value = false
             }
         }
     }
